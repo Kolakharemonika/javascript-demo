@@ -1,8 +1,8 @@
 "use srtict";
 
 let secretNumber = Math.trunc(Math.random() * 20) + 1;
-console.log(secretNumber);
 let score = 20;
+let highscore = 0;
 
 // document.querySelector(".check").addEventListener("click", () => {});
 document.querySelector(".check").addEventListener("click", function () {
@@ -18,6 +18,10 @@ document.querySelector(".check").addEventListener("click", function () {
     document.querySelector(".number").style.padding = "10px 100px";
     document.querySelector("body").style.background = "green";
 
+    if (score > highscore) {
+      highscore = score;
+      document.querySelector(".highscore").textContent = score;
+    }
     //when guess is too high
   } else if (guessNumber > secretNumber) {
     if (score > 1) {
