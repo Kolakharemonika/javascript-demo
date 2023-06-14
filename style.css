@@ -24,20 +24,14 @@ ul {
 section {
   text-align: center;
 }
-section span {
-  width: 30%;
-}
+
 .number {
-  /* width: 40%; */
   border: 2px solid white;
   padding: 10px 60px;
   font-size: 20px;
   margin: 10px;
 }
 
-.correct-number {
-  opacity: 0;
-}
 button {
   padding: 10px;
   margin: 10px;
@@ -45,7 +39,7 @@ button {
 input {
   text-align: center;
   padding: 10px;
-  width: 40%;
+  width: 100px;
   margin: 10px;
 }
 .right {
