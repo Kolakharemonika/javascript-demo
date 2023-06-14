@@ -12,6 +12,38 @@
   </head>
   <body>
     <h1>welcome</h1>
+    <div class="container">
+      <header>
+        <button class="btn btn-primary" onClick="reset()">Again!</button>
+        <p class="right">(Between 1 to 20)</p>
+        <h1>Guess My Number</h1>
+      </header>
+      <section>
+        <span class="correct-number"></span>
+        <span class="number">?</span>
+      </section>
+
+      <div class="row flex">
+        <div class="col-2">
+          <input type="number" class="guess" /> <br />
+          <button class="btn check" onClick="checkGuess()">Check!</button>
+        </div>
+        <div class="col-2">
+          <p class="message">
+            Start guessing...
+            <span></span>
+          </p>
+          <p class="label-score">
+            Score:
+            <span class="score">20</span>
+          </p>
+          <p class="label-highscore">
+            HighScore:
+            <span class="highscore"> 0 </span>
+          </p>
+        </div>
+      </div>
+    </div>
 
     <script src="script.js"></script>
   </body>
