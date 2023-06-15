@@ -71,3 +71,51 @@ input {
   left: 0;
   top: 0;
 }
+
+.game-body {
+  background: rgb(173, 21, 21);
+}
+
+.game-section {
+  background: rgb(189, 122, 122);
+}
+.game-section .col {
+  border: 1px solid red;
+  padding: 5px;
+  margin: 2px;
+  height: 60vh;
+  text-align: center;
+  width: 40%;
+}
+.current-score-p1,
+.current-score-p2 {
+  font-size: 22px;
+  line-height: 2;
+}
+
+.dice-span-p1,
+.dice-span-p2 {
+  height: 30%;
+  line-height: 2;
+  font-size: 28px;
+}
+.label {
+  margin: auto;
+  padding-top: 30px;
+  width: 60%;
+  height: 30%;
+  background: rgb(218, 95, 95);
+}
+
+.col-1 {
+  width: 20%;
+}
+
+.dice-number {
+  margin: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+.active {
+  background: rgb(185, 88, 88);
+}

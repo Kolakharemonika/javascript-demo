@@ -49,6 +49,6 @@ document.querySelector(".again").addEventListener("click", () => {
   document.querySelector(".number").textContent = "?";
   dispalyMessage("Start guessing..");
 
-  document.querySelector("body").style.background = "black";
+  document.querySelector("body").style.background = "white";
   document.querySelector(".number").style.padding = "10px 60px";
 });
