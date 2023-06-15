@@ -119,3 +119,6 @@ input {
 .active {
   background: rgb(185, 88, 88);
 }
+.winner {
+  background: yellowgreen;
+}
