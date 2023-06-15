@@ -12,17 +12,26 @@ const player2currentscore = document.querySelector(".current-score-p2");
 const player1finaldisplay = document.querySelector(".dice-span-p1");
 const player2finaldisplay = document.querySelector(".dice-span-p2");
 
-let activePlayer = 0;
-let currentscore = 0;
-let scores = [0, 0];
-let playing = true;
-player1.classList.add("active");
+let activePlayer, currentscore, scores, playing;
 
-let diceNumber;
-function generateDice() {
-  // diceNumber = Number(Math.floor(Math.random() * (6 - 1 + 1) + 1));
-  diceNumber = Number(Math.trunc(Math.random() * 6) + 1);
-}
+const init = () => {
+  activePlayer = 0;
+  currentscore = 0;
+  scores = [0, 0];
+  playing = true;
+
+  player1.classList.add("active");
+  player2.classList.remove("active");
+  player2.classList.remove("winner");
+  player1.classList.remove("winner");
+  numberDisplay.classList.add("hidden");
+
+  player2finaldisplay.innerHTML = 0;
+  player1finaldisplay.innerHTML = 0;
+  player1currentscore.innerHTML = 0;
+  player2currentscore.innerHTML = 0;
+};
+init();
 
 function activate() {
   document.querySelector(`.current-score-p${activePlayer + 1}`).textContent = 0;
@@ -34,7 +43,7 @@ function activate() {
 
 btnRollDice.addEventListener("click", () => {
   if (playing) {
-    generateDice();
+    let diceNumber = Number(Math.trunc(Math.random() * 6) + 1);
     dice.src = `img/inverted-dice-${diceNumber}.svg`;
     numberDisplay.classList.remove("hidden");
 
@@ -50,19 +59,7 @@ btnRollDice.addEventListener("click", () => {
 });
 
 //Event listerners
-btnNewGame.addEventListener("click", () => {
-  activePlayer = 0;
-  currentscore = 0;
-  scores = [0, 0];
-  playing = true;
-  player1.classList.add("active");
-  numberDisplay.classList.add("hidden");
-
-  player2finaldisplay.innerHTML = 0;
-  player1finaldisplay.innerHTML = 0;
-  player1currentscore.innerHTML = 0;
-  player2currentscore.innerHTML = 0;
-});
+btnNewGame.addEventListener("click", init);
 
 btnHold.addEventListener("click", () => {
   if (playing) {
@@ -72,7 +69,7 @@ btnHold.addEventListener("click", () => {
     document.querySelector(`.dice-span-p${activePlayer + 1}`).textContent =
       scores[activePlayer];
 
-    if (scores[activePlayer] >= 10) {
+    if (scores[activePlayer] >= 100) {
       playing = false;
       document
         .querySelector(`.player${activePlayer + 1}`)
