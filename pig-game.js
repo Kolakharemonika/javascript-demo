@@ -4,27 +4,23 @@ const btnNewGame = document.querySelector(".btn-game");
 
 const numberDisplay = document.querySelector(".dice-number");
 
-let activePlayer = 0;
-
-let diceNumber;
 const player1 = document.querySelector(".player1");
 const player2 = document.querySelector(".player2");
-
-// current-score-p2 current-score-p1
 const player1currentscore = document.querySelector(".current-score-p1");
 const player2currentscore = document.querySelector(".current-score-p2");
-
-// dice-span-p2 after hold add
 const player1finaldisplay = document.querySelector(".dice-span-p1");
 const player2finaldisplay = document.querySelector(".dice-span-p2");
 
+let activePlayer = 0;
 player1.classList.add("active");
 
+let diceNumber;
 function generateDice() {
   diceNumber = Number(Math.floor(Math.random() * (6 - 1 + 1) + 1));
 }
 
 function activate() {
+  activePlayer = !activePlayer;
   if (activePlayer) {
     player2.classList.add("active");
     player1.classList.remove("active");
@@ -32,6 +28,16 @@ function activate() {
     player1.classList.add("active");
     player2.classList.remove("active");
   }
+}
+
+function calculateScore(finaldisplay, currentscore) {
+  let score = Number(finaldisplay.innerHTML) + Number(currentscore.innerHTML);
+  finaldisplay.innerHTML = score;
+
+  if (Number(score) > 100) {
+    prompt(`winner is player ${activePlayer + 1}`);
+  }
+  currentscore.innerHTML = 0;
 }
 
 btnRollDice.addEventListener("click", () => {
@@ -48,7 +54,6 @@ btnRollDice.addEventListener("click", () => {
         Number(player1currentscore.innerHTML) + diceNumber;
     }
   } else {
-    activePlayer = !activePlayer;
     activate();
     if (activePlayer) {
       player1currentscore.innerHTML = 0;
@@ -58,8 +63,9 @@ btnRollDice.addEventListener("click", () => {
   }
 });
 
+//Event listerners
 btnNewGame.addEventListener("click", () => {
-  //add to cuurrent score
+  activePlayer = 0;
   player1.classList.add("active");
   numberDisplay.classList.add("hidden");
 
@@ -70,22 +76,13 @@ btnNewGame.addEventListener("click", () => {
 });
 
 btnHold.addEventListener("click", () => {
-  //add to cuurrent score
-  activePlayer = !activePlayer;
   numberDisplay.classList.add("hidden");
+
   activate();
 
   if (activePlayer) {
-    let player1score =
-      Number(player1finaldisplay.innerHTML) +
-      Number(player1currentscore.innerHTML);
-    player1finaldisplay.innerHTML = player1score;
-    player1currentscore.innerHTML = 0;
+    calculateScore(player1finaldisplay, player1currentscore);
   } else {
-    let player2score =
-      Number(player2finaldisplay.innerHTML) +
-      Number(player2currentscore.innerHTML);
-    player2finaldisplay.innerHTML = player2score;
-    player2currentscore.innerHTML = 0;
+    calculateScore(player2finaldisplay, player2currentscore);
   }
 });
