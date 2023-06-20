@@ -122,3 +122,6 @@ input {
 .winner {
   background: yellowgreen;
 }
+.border-red{
+  border: 1px solid red;
+}
