@@ -796,3 +796,37 @@ let { depositesSums, withdrawalSums } = bankDeposit.reduce((sum, cur) => {
 
 console.log(depositesSums);
 console.log(withdrawalSums);
+
+////////////////////////////////////////////
+const a1 = [1, 0, 2, 6, 7, 8, 25, 7, 1, 1, 9]
+console.log(Math.max(...a1));
+console.log(Math.min(...a1));
+console.log(Math.trunc(Math.random() * 10), '0 to 10 random number');
+console.log(Math.trunc(Math.random() * 6) + 1, 'not containing 0')
+const ramdomInt = (min, max) => {
+    //floor worked better on -ve numbers
+    return Math.floor(Math.random() * (max - min) + 1) + min;
+}
+console.log(ramdomInt(10, 20));
+
+//Maths methods- Rounding integers
+//trunc remove all fraction values/ after .
+console.log(Math.trunc(23.7687676), 'trunc  23.7687676');
+
+//round the figure depends on 0-5 ,6-9 near by value
+console.log(Math.round(23.3687676), 'round 23.3687676');
+console.log(Math.round(23.7687676), 'round 23.7687676');
+
+//ceil into next value whatever(fr>0) fraction is
+console.log(Math.ceil(23.09687676), 'ceil 23.0687676');
+console.log(Math.ceil(23.9687676), ' ceil 23.9687676');
+
+//floor into current value whatever fraction is
+console.log(Math.floor(23.3687676), 'floor 23.3687676');
+console.log(Math.floor(23.9687676), 'floor 23.9687676');
+
+//rounding decimals 
+console.log((2.7).toFixed(0), '(2.7).toFixed(0)'); //3
+console.log((2.7).toFixed(3), '(2.7).toFixed(3)'); //2.700
+console.log((2.345).toFixed(2), '(2.345).toFixed(2)'); //2.35
+console.log(+(2.234).toFixed(2), '+(2.234).toFixed(2)'); //2.23
