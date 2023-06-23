@@ -830,3 +830,15 @@ console.log((2.7).toFixed(0), '(2.7).toFixed(0)'); //3
 console.log((2.7).toFixed(3), '(2.7).toFixed(3)'); //2.700
 console.log((2.345).toFixed(2), '(2.345).toFixed(2)'); //2.35
 console.log(+(2.234).toFixed(2), '+(2.234).toFixed(2)'); //2.23
+
+//settimeout 
+const ing = ['olives', '']
+const pizzaTimer = setTimeout((ing1, ing2) => {
+    console.log('after 3 seconds');
+}, 3000, ...ing);
+
+if (ing.includes('spinach')) clearTimeout(pizzaTimer);
+
+setInterval(() => {
+    console.log(new Date());
+}, 1000)

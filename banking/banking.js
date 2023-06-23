@@ -123,9 +123,39 @@ const currencies = new Map([
     })
 })();
 
-let currentAcc;
+let currentAcc, timer;
 let MinsTimer;
 let sorted = false
+
+const startLogouttimer = () => {
+    const tick = () => {
+        const min = String(Math.trunc(time / 60)).padStart(2, 0)
+        const sec = String(time % 60).padStart(2, 0);
+
+        //in each call, print the remaining time to UI
+        labelTimer.textContent = `${min}:${sec}`;
+
+        //When 0 seconds , stop time & user log out
+        if (time === 0) {
+            clearInterval(timer);
+            labelWelcome.textContent = 'Log in to get started';
+            containerApp.classList.add('opacity-0');
+        }
+
+        //decrese 1s
+        time--;
+
+    }
+
+    // set time to 5 mins 
+    let time = 300;
+
+    //call the timer every seconds 
+    tick();
+    const timer = setInterval(tick, 1000);
+    return timer;
+
+}
 
 const calcPrintBalance = (acc) => {
     acc.balance = acc.movements.reduce((acc, cur) => acc + cur, 0);
@@ -240,9 +270,11 @@ btnLogin.addEventListener('click', (e) => {
         labelDate.textContent = new Intl.DateTimeFormat(currentAcc.locale, options).format(now)
         // Friday, 23 June 2023 at 15:54
 
+        if (timer) clearInterval(timer); //anather if running need to clear
+        timer = startLogouttimer();
+
         //update ui
         updateUI(currentAcc);
-
     }
 
 });
@@ -280,15 +312,23 @@ btnLoan.addEventListener('click', (e) => {
 
     const amount = Math.floor(inputLoanAmount.value);
     if (amount > 0 && currentAcc.movements.some(mov => mov >= amount * 0.1)) {
-        //loan added
-        currentAcc.movements.push(amount)
+        setTimeout(() => {
+            if (ing.includes('spinach')) clearTimeout(pizzaTimer)
+            //loan added
+            currentAcc.movements.push(amount)
 
-        //add loan date
-        currentAcc.movementsDates.push(new Date().toISOString());
+            //add loan date
+            currentAcc.movementsDates.push(new Date().toISOString());
 
-        //update ui
-        updateUI(currentAcc)
+            //update ui
+            updateUI(currentAcc)
+
+            //reset timer
+            clearInterval(timer);
+            timer = startLogouttimer();
+        }, 2500);
     }
+
     inputLoanAmount.value = '';
 
 })
@@ -312,6 +352,10 @@ btnTransfer.addEventListener('click', (e) => {
 
         //update ui
         updateUI(currentAcc);
+
+        //reset timer
+        clearInterval(timer);
+        timer = startLogouttimer();
     }
 })
 
@@ -339,6 +383,8 @@ btnSort.addEventListener('click', (e) => {
 })
 
 btnLogout.addEventListener('click', logout());
+
+
 
 
 // labelBalance.addEventListener('click', () => {
@@ -432,6 +478,3 @@ $ Based on callback
 
  *
 */
-
-
-// console.log(calDayPassed(new Date(2012, 6, 6), new Date(2012, 7, 7)));
