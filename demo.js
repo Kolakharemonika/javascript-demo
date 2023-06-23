@@ -609,4 +609,190 @@ for (const [i, arr] of arr3.entries()) {
 console.log('foreach on map');
 gameEvent.forEach((value, key, map) => {
     console.log(`${key}: ${value}`);
-})
+});
+
+console.log('---------------------------------------------------------');
+const account1 = {
+    owner: 'Jonas Schmedtmann',
+    movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
+    interestRate: 1.2, // %
+    pin: 1111,
+};
+
+const account2 = {
+    owner: 'Jessica Davis',
+    movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
+    interestRate: 1.5,
+    pin: 2222,
+};
+
+const account3 = {
+    owner: 'Steven Thomas Williams',
+    movements: [200, -200, 340, -300, -20, 50, 400, -460],
+    interestRate: 0.7,
+    pin: 3333,
+};
+
+const account4 = {
+    owner: 'Sarah Smith',
+    movements: [430, 1000, 700, 50, 90],
+    interestRate: 1,
+    pin: 4444,
+};
+
+const accounts = [account1, account2, account3, account4];
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const eurToUsd = 1.1;
+
+//return new array with some changes == map method
+console.log(movements.map(mov => Math.trunc(mov * eurToUsd)));
+
+//filter create new array if condition is true
+const deposites = movements.filter(mov => mov > 0);
+const withdrawal = movements.filter(mov => mov < 0);
+console.log(deposites, 'deposites', withdrawal, 'withdrawal');
+
+//reduce method giv value as addition of whole array
+console.log(movements.reduce((acc, mov) => acc + mov));
+
+//3 methods in one- filter map reduce
+const totalDepositUSD = movements.filter(mov => mov > 0).map(mov => Math.trunc(mov * eurToUsd)).reduce((acc, mov) => acc + mov, 0)
+console.log(totalDepositUSD, '3 methods in one- filter map reduce');
+
+const max = movements.reduce((acc, mov) => {
+    if (acc > mov) {
+        return acc;
+    } else {
+        return mov;
+    }
+}, movements[0]);
+
+console.log(max, 'maximun value');
+
+const movementUsd = [];
+for (const mov of movements) {
+    movementUsd.push(Math.trunc(mov * eurToUsd))
+}
+console.log(movementUsd);
+
+//find method return "first occured/one" element only -not areturn new array like map/filter
+console.log(movements.find(mov => mov < 0), ' find method we can use ');
+
+// boolean value giving methods---
+
+//some method to check if codition is true or false, checks every entry --boolean
+console.log(movements.some(mov => mov > 3000));
+
+//some() and includes() methods are same = true or false
+console.log(movements.some(mov => mov === 3000));
+console.log(movements.includes(3000));
+const acc4mov = [430, 1000, 700, 50, 90];
+
+//returns true checks every mov is greter than 0 or not == every method giving boolean 
+console.log(acc4mov.every(mov => mov > 0)); //true
+
+console.log(account1.movements.every(mov => mov > 0)); //false
+
+//find, every, some, includes, map, filter, reduce
+//flat, flatmap
+
+//flat method for taking all nested array in one array 
+const arr5 = [1, 2, [1, 2, 3], [4, 5]]
+console.log(arr5.flat(), 'array.flat() going one level deep'); //going one level deep
+console.log([1, 2, [1, [2, 3]], [4, [5, [8, 9]]]].flat(3), 'nested use flat(lastlevel)');
+
+//taking all movements in one array 
+const accountMovements = accounts.map(acc => acc.movements)
+const allMovements = accountMovements.flat()
+console.log(accountMovements, allMovements);
+console.log(allMovements.reduce((acc, mov) => acc + mov, 0));
+
+console.log(accounts.map(acc => acc.movements).flat().reduce((acc, mov) => acc + mov, 0));
+
+//flatmap
+console.log(accounts.flatMap(acc => acc.movements).reduce((acc, mov) => acc + mov, 0));
+
+// -------------------------------------------------
+
+//string sort method 
+const owners = accounts.map(acc => acc.owner)
+console.log(owners.sort());
+
+//number sort methods 
+// const mv=movements.sort()
+
+console.log(acc4mov.sort(), 'not correct sorted'); //not in correct sorted format 
+console.log(acc4mov.sort((a, b) => a - b), 'sorted correctly');
+const accending = movements.sort((a, b) => {
+    if (a > b) return 1;
+    if (b > a) return -1;
+});
+console.log(accending, 'sorted array in accending order - this is for negative and positive values');
+
+
+const deccending = movements.sort((a, b) => {
+    if (a > b) return -1;
+    if (b > a) return 1;
+});
+console.log(deccending);
+
+//same as abv -shortcut accending decending order/ sorted array number
+console.log(movements.sort((a, b) => a - b));
+console.log(movements.sort((a, b) => b - a));
+
+//---------------------------------------------------------------------------------------------------------------------
+
+//Array methods - how to create new array types, declarations
+console.log([1, 2, 3, 4, 5, 6, 7]);
+console.log(new Array(1, 2, 3, 4, 5, 6, 7));
+
+//empty array
+console.log(new Array(7));
+
+//fill 'array' method
+console.log(new Array(7).fill(1)); //[1, 1, 1, 1, 1, 1, 1]
+console.log(new Array(7).fill(1, 3)); //fill only after element 3
+console.log(new Array(1, 2, 3, 4, 5, 6, 7).fill(23, 1, 3));
+
+//Array 'from' method
+console.log(Array.from({ length: 7 }, () => 1)); //[1, 1, 1, 1, 1, 1, 1]
+console.log(Array.from({ length: 7 }, (cur, i) => i + 1)); //[1, 2, 3, 4, 5, 6, 7]
+//-----------------------------------------------------------
+
+
+let bankDeposit = accounts.map(acc => acc.movements).flat();
+bankDeposit = accounts.flatMap(acc => acc.movements);
+console.log(bankDeposit);
+
+//sum of all deposites
+const bankDepositSum = bankDeposit.filter(mov => mov > 0).reduce((sum, cur) => sum + cur, 0);
+console.log(bankDepositSum);
+
+//number of deposite greater than 1000
+let numDeposits1000 = bankDeposit.filter(mov => mov >= 1000).length
+console.log(numDeposits1000); // 6
+
+numDeposits1000 = bankDeposit.reduce((count, cur) => (cur >= 1000 ? ++count : count), 0);
+console.log(numDeposits1000); // 6
+
+// sum of deposits & withdrawal
+// const depositesSums = bankDeposit.filter(mov => mov > 0).reduce((sum, cur) => sum + cur, 0);
+// const withdrawalSums = bankDeposit.filter(mov => mov < 0).reduce((sum, cur) => sum + cur, 0);
+// console.log(depositesSums);
+// console.log(withdrawalSums);
+
+// let { depositesSums, withdrawalSums } = bankDeposit.reduce((sum, cur) => {
+//     cur > 0 ? sum.depositesSums += cur : sum.withdrawalSums += cur;
+//     return sum;
+// }, { depositesSums: 0, withdrawalSums: 0 });
+
+// console.log(depositesSums);
+// console.log(withdrawalSums);
+
+let { depositesSums, withdrawalSums } = bankDeposit.reduce((sum, cur) => {
+    sum[cur > 0 ? 'depositesSums' : 'withdrawalSums'] += cur;
+    return sum
+}, { depositesSums: 0, withdrawalSums: 0 });
+
+console.log(depositesSums);
+console.log(withdrawalSums);
