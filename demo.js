@@ -298,92 +298,6 @@ for (const [key, value] of gameEvent) {
 
 
 
-const amountEl = document.getElementById('amount');
-const wordEl = document.getElementById('inwords')
-
-
-const firstline = ['', 'one ', 'two ', 'three ', 'four ', 'five ', 'six ', 'seven ', 'eight ', 'nine ', 'ten ', 'eleven ', 'twelve ', 'thirteen ', 'fourteen ', 'fifteen ', 'sixteen ', 'seventeen ', 'eighteen ', 'nineteen '];
-const secondline = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
-
-function inWords(num) {
-    const str2 = ('000000000' + num)
-    if ((num = num.toString()).length > 9) return 'overflow';
-
-    const n = str2.substr(-9).match(/^(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/);
-    console.log(n, 'n');
-    if (!n) return; var str = '';
-    str += (n[1] != 0) ? (firstline[Number(n[1])] || secondline[n[1][0]] + ' ' + firstline[n[1][1]]) + 'crore ' : '';
-    console.log(str);
-    str += (n[2] != 0) ? (firstline[Number(n[2])] || secondline[n[2][0]] + ' ' + firstline[n[2][1]]) + 'lakh ' : '';
-    console.log(str);
-    str += (n[3] != 0) ? (firstline[Number(n[3])] || secondline[n[3][0]] + ' ' + firstline[n[3][1]]) + 'thousand ' : '';
-    console.log(str);
-    str += (n[4] != 0) ? (firstline[Number(n[4])] || secondline[n[4][0]] + ' ' + firstline[n[4][1]]) + 'hundred ' : '';
-    console.log(str);
-    str += (n[5] != 0) ? ((str != '') ? 'and ' : '') + (firstline[Number(n[5])] || secondline[n[5][0]] + ' ' + firstline[n[5][1]]) + ' only ' : '';
-    console.log(str);
-    return str;
-}
-
-document.getElementById('amount').oninput = function () {
-    document.getElementById('inwords').innerHTML = inWords(document.getElementById('amount').value);
-};
-
-function amountToWords(amount) {
-    var units = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
-    var tens = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
-
-    var words = [];
-
-    var millions = Math.floor(amount / 1000000);
-    amount %= 1000000;
-    var thousands = Math.floor(amount / 1000);
-    amount %= 1000;
-    var hundreds = Math.floor(amount / 100);
-    amount %= 100;
-    var tensAndOnes = amount;
-
-    if (millions > 0) {
-        words.push(convertThreeDigits(millions) + ' million');
-    }
-    if (thousands > 0) {
-        words.push(convertThreeDigits(thousands) + ' thousand');
-    }
-    if (hundreds > 0) {
-        words.push(convertThreeDigits(hundreds) + ' hundred');
-    }
-    if (tensAndOnes > 0) {
-        words.push(convertTwoDigits(tensAndOnes));
-    }
-
-    return words.join(' ');
-
-    function convertThreeDigits(number) {
-        var words = [];
-        var hundreds = Math.floor(number / 100);
-        number %= 100;
-        var tensAndOnes = number;
-
-        if (hundreds > 0) {
-            words.push(units[hundreds] + ' hundred');
-        }
-        if (tensAndOnes > 0) {
-            words.push(convertTwoDigits(tensAndOnes));
-        }
-
-        return words.join(' ');
-    }
-
-    function convertTwoDigits(number) {
-        if (number < 20) {
-            return units[number];
-        } else {
-            var tensDigit = Math.floor(number / 10);
-            var onesDigit = number % 10;
-            return tens[tensDigit] + ' ' + units[onesDigit];
-        }
-    }
-}
 
 // Example usage
 var amount = 123456789;
@@ -840,5 +754,92 @@ const pizzaTimer = setTimeout((ing1, ing2) => {
 if (ing.includes('spinach')) clearTimeout(pizzaTimer);
 
 setInterval(() => {
-    console.log(new Date());
-}, 1000)
+    // console.log(new Date());
+}, 1000);
+
+const amountEl = document.getElementById('amount');
+const wordEl = document.getElementById('inwords')
+
+
+const firstline = ['', 'one ', 'two ', 'three ', 'four ', 'five ', 'six ', 'seven ', 'eight ', 'nine ', 'ten ', 'eleven ', 'twelve ', 'thirteen ', 'fourteen ', 'fifteen ', 'sixteen ', 'seventeen ', 'eighteen ', 'nineteen '];
+const secondline = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
+
+function inWords(num) {
+    const str2 = ('000000000' + num)
+    if ((num = num.toString()).length > 9) return 'overflow';
+
+    const n = str2.substr(-9).match(/^(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/);
+    console.log(n, 'n');
+    if (!n) return; var str = '';
+    str += (n[1] != 0) ? (firstline[Number(n[1])] || secondline[n[1][0]] + ' ' + firstline[n[1][1]]) + 'crore ' : '';
+    console.log(str);
+    str += (n[2] != 0) ? ((str != '') && (n[3] == 0) ? 'and ' : '') + (firstline[Number(n[2])] || secondline[n[2][0]] + ' ' + firstline[n[2][1]]) + 'lakh ' : '';
+    console.log(str);
+    str += (n[3] != 0) ? ((str != '') && ((n[4] == 0) && (n[5] == 0)) ? 'and ' : '') + (firstline[Number(n[3])] || secondline[n[3][0]] + ' ' + firstline[n[3][1]]) + 'thousand ' : '';
+    console.log(str);
+    str += (n[4] != 0) ? ((str != '') && (n[5] == 0) ? 'and ' : '') + (firstline[Number(n[4])] || secondline[n[4][0]] + ' ' + firstline[n[4][1]]) + 'hundred ' : '';
+    console.log(str);
+    str += (n[5] != 0) ? ((str != '') ? 'and ' : '') + (firstline[Number(n[5])] || secondline[n[5][0]] + ' ' + firstline[n[5][1]]) : '';
+    str += (str != '') ? ' only ' : '';
+    return str;
+}
+
+document.getElementById('amount').oninput = function () {
+    document.getElementById('inwords').innerHTML = inWords(document.getElementById('amount').value);
+};
+
+function amountToWords(amount) {
+    var units = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+    var tens = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
+
+    var words = [];
+
+    var millions = Math.floor(amount / 1000000);
+    amount %= 1000000;
+    var thousands = Math.floor(amount / 1000);
+    amount %= 1000;
+    var hundreds = Math.floor(amount / 100);
+    amount %= 100;
+    var tensAndOnes = amount;
+
+    if (millions > 0) {
+        words.push(convertThreeDigits(millions) + ' million');
+    }
+    if (thousands > 0) {
+        words.push(convertThreeDigits(thousands) + ' thousand');
+    }
+    if (hundreds > 0) {
+        words.push(convertThreeDigits(hundreds) + ' hundred');
+    }
+    if (tensAndOnes > 0) {
+        words.push(convertTwoDigits(tensAndOnes));
+    }
+
+    return words.join(' ');
+
+    function convertThreeDigits(number) {
+        var words = [];
+        var hundreds = Math.floor(number / 100);
+        number %= 100;
+        var tensAndOnes = number;
+
+        if (hundreds > 0) {
+            words.push(units[hundreds] + ' hundred');
+        }
+        if (tensAndOnes > 0) {
+            words.push(convertTwoDigits(tensAndOnes));
+        }
+
+        return words.join(' ');
+    }
+
+    function convertTwoDigits(number) {
+        if (number < 20) {
+            return units[number];
+        } else {
+            var tensDigit = Math.floor(number / 10);
+            var onesDigit = number % 10;
+            return tens[tensDigit] + ' ' + units[onesDigit];
+        }
+    }
+}

@@ -67,4 +67,42 @@ header.after(message); //disply bottom of header
 document.querySelector('.btn--close-cookie').addEventListener('click', () => {
   // message.remove(); //to remove div 
   message.parentElement.removeChild(message); //anather method for removing child
-})
+});
+
+
+
+//Styles
+message.style.backgroundColor = '#37783d';
+message.style.width = '120%';
+
+console.log(message.style.color);
+console.log(message.style.backgroundColor);
+console.log(message.style.height); //empty log bcs we cannot get height from here
+
+console.log(getComputedStyle(message));
+console.log(getComputedStyle(message).color);
+console.log(getComputedStyle(message).height); //display height
+
+message.style.height = Number.parseFloat(getComputedStyle(message).height, 10) + 40 + 'px';// change height from here
+
+//change style from here apply to all over, just using this.
+document.documentElement.style.setProperty('--color-primary', 'orangered');
+
+//attributes
+const logo = document.querySelector('.nav__logo');
+console.log(logo.src);
+console.log(logo.designer); //undefind bcs custome attribute
+
+// getAttribute setAttribute
+console.log(logo.getAttribute('designer'));
+logo.setAttribute('company', 'Bankist');
+
+//classes 
+logo.classList.add('c', 'f');
+logo.classList.remove('c', 'f');
+logo.classList.toggle('c');
+logo.classList.contains('c');
+
+//its overriide all existing classes and use assign classname
+logo.className = 'classname';
+
