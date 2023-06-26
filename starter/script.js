@@ -111,11 +111,7 @@ logo.className = 'classname';
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
 
-btnScrollTo.addEventListener('click', function (e) {
-})
-
-//anather type off addeventlister declaration
-btnScrollTo.onclick = function (e) {
+const clickScrollevent = function (e) {
   const s1coords = section1.getBoundingClientRect();
   console.log(s1coords);
 
@@ -136,3 +132,19 @@ btnScrollTo.onclick = function (e) {
 
 }
 
+//anather type off addeventlister declaration
+// btnScrollTo.onclick = clickScrollevent;
+
+btnScrollTo.addEventListener('click', clickScrollevent);
+
+//removeEventListener
+const h1 = document.querySelector('h1')
+
+const alertH1 = () => {
+  console.log('h1 hiieeeeeeeeee');
+  // h1.removeEventListener('mouseenter', alertH1); //we can use this method
+}
+
+h1.addEventListener('mouseenter', alertH1);
+
+setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000)
