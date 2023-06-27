@@ -97,37 +97,10 @@ const handleHover = function (e) {
 nav.addEventListener('mouseover', handleHover.bind(0.5));
 nav.addEventListener('mouseout', handleHover.bind(1));
 
-
-//Sticky navigation bar/ header
-
-// const initialCorrds = section1.getBoundingClientRect(); //use for scroll
-// // console.log(initialCorrds); //cordinate of section--1
-// window.addEventListener('scroll', function (e) {
-
-//   //window scrolling > section coords position
-//   if (window.scrollY > initialCorrds.top)
-//     nav.classList.add('sticky');
-//   else nav.classList.remove('sticky');
-// });
-
-
-
-//IntersectionObserver
-// const obsCallBack = function (entries, observer) {
-//   entries.forEach(entry => {
-//     console.log(entry);
-//   })
-// }
-// const obsOptions = {
-//   root: null, // element target intersecting
-//   threshold: [0, 1, 0.2] //percent of visible
-// }
-// const observer = new IntersectionObserver(obsCallBack, obsOptions);
-// observer.observe(section1);
-
+//using IntersectionObserver-sticky header
 const header = document.querySelector('header');
 const navHeight = nav.getBoundingClientRect().height;
-const stikyNav = function (entries, observer) {
+const stickyNav = function (entries, observer) {
   const [entry] = entries;
 
   if (!entry.isIntersecting)
@@ -139,8 +112,30 @@ const obsOptions = {
   threshold: 0, //percent of visible
   rootMargin: `-${navHeight}px`
 }
-const headerObserver = new IntersectionObserver(stikyNav, obsOptions);
+const headerObserver = new IntersectionObserver(stickyNav, obsOptions);
 headerObserver.observe(header);
+
+
+//Reveal sections
+const allSections = document.querySelectorAll('.section');
+const revealSection = function (entries, observer) {
+  const [entry] = entries;
+
+  if (!entry.isIntersecting) return;
+  entry.target.classList.remove('section--hidden');
+  observer.unobserve(entry.target);
+}
+
+const sectionObserver = new IntersectionObserver(revealSection, {
+  root: null,
+  threshold: 0.15,
+});
+
+allSections.forEach(function (section) {
+  sectionObserver.observe(section);
+  section.classList.add('section--hidden');
+})
+
 
 
 /** 
@@ -156,6 +151,18 @@ window.addEventListener('scroll', function (e) {
   else nav.classList.remove('sticky');
 });
 
+* //IntersectionObserver
+// const obsCallBack = function (entries, observer) {
+//   entries.forEach(entry => {
+//     console.log(entry);
+//   })
+// }
+// const obsOptions = {
+//   root: null, // element target intersecting
+//   threshold: [0, 1, 0.2] //percent of visible
+// }
+// const observer = new IntersectionObserver(obsCallBack, obsOptions);
+// observer.observe(section1);
 
  *  //Menu fade animation
 const handleHover = function (e, opacity) {
