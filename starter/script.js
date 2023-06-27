@@ -31,6 +31,31 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
+//capturing and bubling 
+//it will have same target 
+const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+const randomColor = () => {
+  return `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`
+}
+
+document.querySelector('.nav__link').addEventListener('click', (e) => {
+  document.querySelector('.nav__link').style.backgroundColor = randomColor();
+  console.log('link', e.target);
+
+  //stop propagation
+  // e.stopPropagation(); // now only link will change color
+});
+
+document.querySelector('.nav__links').addEventListener('click', (e) => {
+  document.querySelector('.nav__links').style.backgroundColor = randomColor();
+  console.log('container', e.target);
+});
+
+document.querySelector('.nav').addEventListener('click', (e) => {
+  document.querySelector('.nav').style.backgroundColor = randomColor();
+  console.log('nav', e.target);
+});
+
 /** 
 //entire element select then 
 console.log(document.documentElement);
@@ -105,7 +130,7 @@ logo.classList.contains('c');
 
 //its overriide all existing classes and use assign classname
 logo.className = 'classname';
-*/
+
 
 //scrolling 
 const btnScrollTo = document.querySelector('.btn--scroll-to');
@@ -138,7 +163,7 @@ const clickScrollevent = function (e) {
 btnScrollTo.addEventListener('click', clickScrollevent);
 
 //removeEventListener
-const h1 = document.querySelector('h1')
+const h1 = document.querySelector('h1');a
 
 const alertH1 = () => {
   console.log('h1 hiieeeeeeeeee');
@@ -148,3 +173,4 @@ const alertH1 = () => {
 h1.addEventListener('mouseenter', alertH1);
 
 setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000)
+*/
