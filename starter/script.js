@@ -44,6 +44,45 @@ btnScrollTo.onclick = clickScrollevent;
 
 /////page navigation ////
 
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  e.preventDefault();
+
+  //matching statergy
+  if (e.target.classList.contains('nav__link')) {
+    const id = e.target.getAttribute('href');
+    console.log(id);
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  }
+
+});
+
+//activate operations tabs
+const tabContainer = document.querySelector('.operations__tab-container');
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContent = document.querySelectorAll('.operations__content');
+
+tabContainer.addEventListener('click', function (e) {
+  const clicked = e.target.closest('.operations__tab');
+
+  //Guard clauses
+  if (!clicked) return;
+
+  //remove active classes //remove active class first then add to target
+  tabs.forEach(t => t.classList.remove('operations__tab--active'));
+  tabsContent.forEach(t => t.classList.remove('operations__content--active'));
+
+  //activate content area & btn
+  console.log(clicked.dataset.tab); //1 2 3  
+  clicked.classList.add('operations__tab--active');
+  document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active')
+
+})
+
+
+
+/** 
+ /////page navigation ////
+
 //this is fine for small nav links
 // document.querySelectorAll('.nav__link').forEach((el) => {
 //   el.addEventListener('click', function (e) {
@@ -71,9 +110,6 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 
 })
 
-
-
-/** 
 //capturing and bubling 
 //it will have same target 
 const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
@@ -216,7 +252,7 @@ const alertH1 = () => {
 h1.addEventListener('mouseenter', alertH1);
 
 setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000)
-*/
+
 
 const h1 = document.querySelector('h1');
 console.log(h1);
@@ -258,3 +294,4 @@ console.log(h1.parentElement.children);// all children including this
 
 })
 
+*/
