@@ -100,20 +100,64 @@ nav.addEventListener('mouseout', handleHover.bind(1));
 
 //Sticky navigation bar/ header
 
+// const initialCorrds = section1.getBoundingClientRect(); //use for scroll
+// // console.log(initialCorrds); //cordinate of section--1
+// window.addEventListener('scroll', function (e) {
+
+//   //window scrolling > section coords position
+//   if (window.scrollY > initialCorrds.top)
+//     nav.classList.add('sticky');
+//   else nav.classList.remove('sticky');
+// });
+
+
+
+//IntersectionObserver
+// const obsCallBack = function (entries, observer) {
+//   entries.forEach(entry => {
+//     console.log(entry);
+//   })
+// }
+// const obsOptions = {
+//   root: null, // element target intersecting
+//   threshold: [0, 1, 0.2] //percent of visible
+// }
+// const observer = new IntersectionObserver(obsCallBack, obsOptions);
+// observer.observe(section1);
+
+const header = document.querySelector('header');
+const navHeight = nav.getBoundingClientRect().height;
+const stikyNav = function (entries, observer) {
+  const [entry] = entries;
+
+  if (!entry.isIntersecting)
+    nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+}
+const obsOptions = {
+  root: null, // element target intersecting
+  threshold: 0, //percent of visible
+  rootMargin: `-${navHeight}px`
+}
+const headerObserver = new IntersectionObserver(stikyNav, obsOptions);
+headerObserver.observe(header);
+
+
+/** 
+ * //Sticky navigation bar/ header
+
 const initialCorrds = section1.getBoundingClientRect(); //use for scroll
 // console.log(initialCorrds); //cordinate of section--1
-
 window.addEventListener('scroll', function (e) {
 
   //window scrolling > section coords position
   if (window.scrollY > initialCorrds.top)
     nav.classList.add('sticky');
   else nav.classList.remove('sticky');
-})
+});
 
 
-/** 
- //Menu fade animation
+ *  //Menu fade animation
 const handleHover = function (e, opacity) {
   if (e.target.classList.contains('nav__link')) {
     const link = e.target;
