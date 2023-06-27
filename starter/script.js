@@ -217,3 +217,44 @@ h1.addEventListener('mouseenter', alertH1);
 
 setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000)
 */
+
+const h1 = document.querySelector('h1');
+console.log(h1);
+console.log(h1.querySelectorAll('.highlight'));
+
+//going downward
+console.log(h1.childNodes);
+console.log(h1.children);
+
+console.log(h1.firstChild, 'firstChild');
+console.log(h1.lastChild);
+
+console.log(h1.firstElementChild);
+console.log(h1.lastElementChild);
+
+h1.firstElementChild.style.color = 'white';//make "banking" text color white
+h1.lastElementChild.style.color = 'orangered';//make "minimalist" text color orangered
+
+//going upwards
+console.log(h1.parentNode);
+console.log(h1.parentElement);
+
+// h1 closest ('.header')
+h1.closest('.header').style.background = 'var(--gradient-secondary)';  //closest element color change
+
+//Going sideways: siblings
+console.log(h1.previousElementSibling);
+console.log(h1.nextElementSibling);
+
+console.log(h1.previousSibling);
+console.log(h1.nextSibling);
+
+console.log(h1.parentElement.children);// all children including this
+
+[...h1.parentElement.children].forEach((el) => {
+  //loop all childrens including h1
+  console.log(el);
+  if (el !== h1) el.style.transform = 'scale(0.5)';
+
+})
+
