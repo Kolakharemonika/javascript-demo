@@ -161,8 +161,55 @@ const imgObserver = new IntersectionObserver(loadImg, {
 
 imgTargets.forEach(function (img) {
   imgObserver.observe(img);
-})
+});
 
+
+//slideshow
+const slides = document.querySelectorAll('.slide');
+const slider = document.querySelector('.slider');
+const btnLeft = document.querySelector('.slider__btn--left');
+const btnRight = document.querySelector('.slider__btn--right');
+
+// slider.style.transform = 'scale(0.5)';
+slider.style.overflow = 'visible';
+
+let currentSlide = 0;
+const maxSlide = slides.length - 1;
+
+// slides.forEach((s, i) => {
+//   s.style.transform = `translateX(${100 * i}%)`;
+// }); // we are using gotoSlide(0)
+
+function gotoSlide(slide) {
+  slides.forEach((s, i) => {
+    s.style.transform = `translateX(${100 * (i - slide)}%)`
+  });
+}
+
+gotoSlide(0);
+console.log(maxSlide);
+//next slide 
+const nextSlide = function () {
+  if (currentSlide === maxSlide) {
+    currentSlide = 0;
+  } else {
+    currentSlide++;
+  }
+  gotoSlide(currentSlide);
+}
+
+const prevSlide = () => {
+  if (currentSlide === 0) {
+    currentSlide = maxSlide - 1;
+  } else {
+    currentSlide--;
+  }
+  gotoSlide(currentSlide);
+}
+
+btnRight.addEventListener('click', nextSlide);
+
+btnLeft.addEventListener('click', prevSlide);
 /** 
  * //Sticky navigation bar/ header
 
