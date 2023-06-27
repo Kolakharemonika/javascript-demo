@@ -31,6 +31,49 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
+//scrolling 
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+const clickScrollevent = function (e) {
+  section1.scrollIntoView({ behavior: 'smooth' });
+}
+
+//anather type off addeventlister declaration
+btnScrollTo.onclick = clickScrollevent;
+
+/////page navigation ////
+
+//this is fine for small nav links
+// document.querySelectorAll('.nav__link').forEach((el) => {
+//   el.addEventListener('click', function (e) {
+//     e.preventDefault();
+
+//     const id = el.getAttribute('href');
+
+//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+//   });
+// });
+
+
+//1. Add evemtlistener to common parent element
+//2. determine what element originated the event
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  // console.log(e.target);
+  e.preventDefault();
+
+  //matching statergy
+  if (e.target.classList.contains('nav__link')) {
+    const id = e.target.getAttribute('href');
+    console.log(id);
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  }
+
+})
+
+
+
+/** 
 //capturing and bubling 
 //it will have same target 
 const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
@@ -56,7 +99,7 @@ document.querySelector('.nav').addEventListener('click', (e) => {
   console.log('nav', e.target);
 });
 
-/** 
+
 //entire element select then 
 console.log(document.documentElement);
 console.log(document.head);
