@@ -43,8 +43,8 @@ const clickScrollevent = function (e) {
 btnScrollTo.onclick = clickScrollevent;
 
 /////page navigation ////
-
-document.querySelector('.nav__links').addEventListener('click', function (e) {
+const nav = document.querySelector('.nav__links')
+nav.addEventListener('click', function (e) {
   e.preventDefault();
 
   //matching statergy
@@ -80,7 +80,46 @@ tabContainer.addEventListener('click', function (e) {
 
 
 
+//Menu fade animation
+const handleHover = function (e) {
+  // this== opcacity
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    const siblings = link.closest('.nav').querySelectorAll('.nav__link');
+    const logo = link.closest('.nav').querySelector('img');
+    siblings.forEach(el => {
+      if (el !== link) el.style.opacity = this;
+    });
+    logo.style.opacity = this;
+  }
+}
+
+nav.addEventListener('mouseover', handleHover.bind(0.5));
+nav.addEventListener('mouseout', handleHover.bind(1));
+
 /** 
+ //Menu fade animation
+const handleHover = function (e, opacity) {
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    const siblings = link.closest('.nav').querySelectorAll('.nav__link');
+    const logo = link.closest('.nav').querySelector('img');
+    siblings.forEach(el => {
+      if (el !== link) el.style.opacity = opacity
+    });
+    logo.style.opacity = opacity;
+  }
+}
+
+nav.addEventListener('mouseover', function (e) {
+  handleHover(e, 0.5);
+});
+
+nav.addEventListener('mouseout', function (e) {
+  handleHover(e, 1);
+});
+
+
  /////page navigation ////
 
 //this is fine for small nav links
