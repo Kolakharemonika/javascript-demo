@@ -1,11 +1,21 @@
 'use strict';
 
-///////////////////////////////////////// Modal window
-
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+const nav = document.querySelector('.nav');
+const navLinks = document.querySelector('.nav__links');
+const tabContainer = document.querySelector('.operations__tab-container');
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContent = document.querySelectorAll('.operations__content');
+///////////////////////////////////////// Modal window
+
+
 
 const openModal = function (e) {
   e.preventDefault();
@@ -32,9 +42,6 @@ document.addEventListener('keydown', function (e) {
 });
 
 //scrolling 
-const btnScrollTo = document.querySelector('.btn--scroll-to');
-const section1 = document.querySelector('#section--1');
-
 const clickScrollevent = function (e) {
   section1.scrollIntoView({ behavior: 'smooth' });
 }
@@ -43,8 +50,7 @@ const clickScrollevent = function (e) {
 btnScrollTo.onclick = clickScrollevent;
 
 /////page navigation ////
-const nav = document.querySelector('.nav__links')
-nav.addEventListener('click', function (e) {
+navLinks.addEventListener('click', function (e) {
   e.preventDefault();
 
   //matching statergy
@@ -57,10 +63,6 @@ nav.addEventListener('click', function (e) {
 });
 
 //activate operations tabs
-const tabContainer = document.querySelector('.operations__tab-container');
-const tabs = document.querySelectorAll('.operations__tab');
-const tabsContent = document.querySelectorAll('.operations__content');
-
 tabContainer.addEventListener('click', function (e) {
   const clicked = e.target.closest('.operations__tab');
 
@@ -78,8 +80,6 @@ tabContainer.addEventListener('click', function (e) {
 
 })
 
-
-
 //Menu fade animation
 const handleHover = function (e) {
   // this== opcacity
@@ -96,6 +96,21 @@ const handleHover = function (e) {
 
 nav.addEventListener('mouseover', handleHover.bind(0.5));
 nav.addEventListener('mouseout', handleHover.bind(1));
+
+
+//Sticky navigation bar/ header
+
+const initialCorrds = section1.getBoundingClientRect(); //use for scroll
+// console.log(initialCorrds); //cordinate of section--1
+
+window.addEventListener('scroll', function (e) {
+
+  //window scrolling > section coords position
+  if (window.scrollY > initialCorrds.top)
+    nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+})
+
 
 /** 
  //Menu fade animation
