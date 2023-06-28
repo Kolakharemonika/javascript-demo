@@ -289,6 +289,8 @@ window.addEventListener('beforeunload', function (e) {
   // e.returnValue = '';
 });
 
+
+
 /**
  * 1)REGULAR we add script tag in HEAD tag
  * which is parse HTML--- waiting(fetch script & execution)---then finish parcing HTML 
