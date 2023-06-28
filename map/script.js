@@ -21,13 +21,21 @@ if (navigator.geolocation) {
 
         var map = L.map('map').setView(coords, 13);
 
+        // https://leafletjs.com/examples/quick-start/
+
+        //change theme1.6.0 https:{s}//tile.openstreetmap.fr/hot//{z}/{x}/{y}.png or https://tile.openstreetmap.fr/hot//{z}/{x}/{y}.png
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        L.marker(coords).addTo(map)
-            .bindPopup('A pretty CSS popup.<br> Easily customizable.')
-            .openPopup();
+        map.on('click', function (mapEvent) {
+            console.log(mapEvent);
+            const { lat, lng } = mapEvent.latlng;
+
+            L.marker([lat, lng]).addTo(map)
+                .bindPopup('Workout')
+                .openPopup();
+        })
         // console.log(`https://www.google.com/maps/@${latitude},${longitude}`);
     }, function () {
         alert('could not get your position')
