@@ -16,6 +16,7 @@
  * 
  */
 
+//like constructor
 const Person = function (firstname, birthyear) {
     // console.log(this, firstname, birthyear);
 
@@ -32,5 +33,15 @@ const Person = function (firstname, birthyear) {
 
 // console.log(new Person('Monika', 1997)); // {} if this.firstname = firstname; not defined
 const mk = new Person('Monika', 1997);
-console.log(mk, mk instanceof Person);
+const mkk = new Person('Monikak', 2001);
+console.log(mk, mkk, mk instanceof Person);
+
+//prototypes
+console.log(Person.prototype);
+
+Person.prototype.calcAge = function () {
+    console.log((2037 - this.birthyear));
+}
+
+mk.calcAge();
 
