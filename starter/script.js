@@ -20,9 +20,14 @@ const btnLeft = document.querySelector('.slider__btn--left');
 const btnRight = document.querySelector('.slider__btn--right');
 
 const dotContainer = document.querySelector('.dots');
+
+const footerNav = document.querySelector('.footer__nav');
+const footerNavLinks = document.querySelectorAll('.footer__link');
+
 ///////////////////////////////////////// Modal window
 
-
+console.log(footerNav, 'footerNav');
+console.log(footerNavLinks, 'footerNavLinks');
 
 const openModal = function (e) {
   e.preventDefault();
@@ -250,9 +255,25 @@ const slideShow = function () {
   });
 
 }
-
 slideShow();
-// img/img-2.jpg
+
+//Footer navigation hover
+const handleLinkHovers = function (e) {
+
+  if (e.target.classList.contains('footer__link')) {
+    const link = e.target;
+    const siblings = link.closest('.footer__nav').querySelectorAll('.footer__link');
+    siblings.forEach(el => {
+      if (el !== link) el.style.opacity = this;
+    });
+  }
+
+}
+
+footerNav.addEventListener('mouseover', handleLinkHovers.bind(0.5));
+footerNav.addEventListener('mouseout', handleLinkHovers.bind(1));
+
+
 
 /** 
  * //Sticky navigation bar/ header
