@@ -272,7 +272,22 @@ const handleLinkHovers = function (e) {
 footerNav.addEventListener('mouseover', handleLinkHovers.bind(0.5));
 footerNav.addEventListener('mouseout', handleLinkHovers.bind(1));
 
+// Lifecycle of DOM events 
+document.addEventListener('DOMContentLoaded', function (e) {
+  console.log('HTML parsed and DOM tree build', e);
+});
 
+window.addEventListener('load', function (e) {
+  console.log('page fully loaded', e);
+});
+
+window.addEventListener('beforeunload', function (e) {
+  e.preventDefault();
+  console.log(e, 'before leave site');
+
+  //usefull if you want to show dialog before reload site?
+  e.returnValue = '';
+});
 
 /** 
  * //Sticky navigation bar/ header
