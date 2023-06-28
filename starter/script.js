@@ -26,8 +26,7 @@ const footerNavLinks = document.querySelectorAll('.footer__link');
 
 ///////////////////////////////////////// Modal window
 
-console.log(footerNav, 'footerNav');
-console.log(footerNavLinks, 'footerNavLinks');
+
 
 const openModal = function (e) {
   e.preventDefault();
