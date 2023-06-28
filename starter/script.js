@@ -274,6 +274,38 @@ footerNav.addEventListener('mouseout', handleLinkHovers.bind(1));
 
 // Lifecycle of DOM events 
 document.addEventListener('DOMContentLoaded', function (e) {
+  // console.log('HTML parsed and DOM tree build', e);
+});
+
+window.addEventListener('load', function (e) {
+  // console.log('page fully loaded', e);
+});
+
+window.addEventListener('beforeunload', function (e) {
+  e.preventDefault();
+  // console.log(e, 'before leave site');
+
+  //usefull if you want to show dialog before reload site?
+  // e.returnValue = '';
+});
+
+/**
+ * 1)REGULAR we add script tag in HEAD tag
+ * which is parse HTML--- waiting(fetch script & execution)---then finish parcing HTML 
+ * not good
+ * so we --used in BODY tag----> (currently we are using)
+ * 'parsing HTML 'first then--- 'fetch script & execution' 
+ * 2) ASYNC we add script tag in HEAD tag (<script async src="">)
+ * imp- 'parsing HTML' (meanwhile started fetch script)---waiting ('script execution')---'finish parsing HTML'
+ * 3) DEFER we add script tag in HEAD tag (<script defer src="">)
+ * imp- 'parsing full HTML' (meanwhile started fetch script)---'Execute script' (should use)
+ * 
+ * */
+
+
+/** 
+ * // Lifecycle of DOM events 
+document.addEventListener('DOMContentLoaded', function (e) {
   console.log('HTML parsed and DOM tree build', e);
 });
 
@@ -289,7 +321,6 @@ window.addEventListener('beforeunload', function (e) {
   e.returnValue = '';
 });
 
-/** 
  * //Sticky navigation bar/ header
 
 const initialCorrds = section1.getBoundingClientRect(); //use for scroll
