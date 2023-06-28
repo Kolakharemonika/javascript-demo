@@ -13,6 +13,13 @@ const navLinks = document.querySelector('.nav__links');
 const tabContainer = document.querySelector('.operations__tab-container');
 const tabs = document.querySelectorAll('.operations__tab');
 const tabsContent = document.querySelectorAll('.operations__content');
+
+const slides = document.querySelectorAll('.slide');
+const slider = document.querySelector('.slider');
+const btnLeft = document.querySelector('.slider__btn--left');
+const btnRight = document.querySelector('.slider__btn--right');
+
+const dotContainer = document.querySelector('.dots');
 ///////////////////////////////////////// Modal window
 
 
@@ -139,6 +146,7 @@ allSections.forEach(function (section) {
 //lazy loading 
 const imgTargets = document.querySelectorAll('img[data-src]');
 console.log(imgTargets);
+
 const loadImg = function (entries, observer) {
   const [entry] = entries;
 
@@ -165,51 +173,87 @@ imgTargets.forEach(function (img) {
 
 
 //slideshow
-const slides = document.querySelectorAll('.slide');
-const slider = document.querySelector('.slider');
-const btnLeft = document.querySelector('.slider__btn--left');
-const btnRight = document.querySelector('.slider__btn--right');
+const slideShow = function () {
+  slider.style.overflow = 'visible';
 
-// slider.style.transform = 'scale(0.5)';
-slider.style.overflow = 'visible';
+  let currentSlide = 0;
+  const maxSlide = slides.length;
 
-let currentSlide = 0;
-const maxSlide = slides.length - 1;
+  function gotoSlide(slide) {
+    slides.forEach((s, i) => {
+      s.style.transform = `translateX(${100 * (i - slide)}%)`
+    });
+  }
 
-// slides.forEach((s, i) => {
-//   s.style.transform = `translateX(${100 * i}%)`;
-// }); // we are using gotoSlide(0)
+  //next slide 
+  const nextSlide = function () {
+    if (currentSlide === maxSlide - 1) {
+      currentSlide = 0;
+    } else {
+      currentSlide++;
+    }
+    gotoSlide(currentSlide);
+    activateDots(currentSlide);
+  }
 
-function gotoSlide(slide) {
-  slides.forEach((s, i) => {
-    s.style.transform = `translateX(${100 * (i - slide)}%)`
+  const prevSlide = () => {
+    if (currentSlide === 0) {
+      currentSlide = maxSlide - 1
+    } else {
+      currentSlide--;
+    }
+    gotoSlide(currentSlide);
+    activateDots(currentSlide);
+  }
+
+  btnRight.addEventListener('click', nextSlide);
+
+  btnLeft.addEventListener('click', prevSlide);
+
+  document.addEventListener('keydown', function (e) {
+    // console.log(e.key);
+    e.key === 'ArrowRight' && nextSlide();
+    e.key === 'ArrowLeft' && prevSlide();
+  })
+
+  //click on dots and slide images
+  const createDots = function () {
+    slides.forEach(function (_, i) {
+      dotContainer.insertAdjacentHTML(
+        'beforeend',
+        `<button class="dots__dot" data-slide="${i}"></button>`
+      );
+    });
+  };
+
+  //activate dots as slide click -white color
+  const activateDots = (slide) => {
+    document.querySelectorAll('.dots__dot').forEach(dot => dot.classList.remove('dots__dot--active'))
+
+    document.querySelector(`.dots__dot[data-slide="${slide}"]`).classList.add('dots__dot--active');
+  }
+
+  const init = () => {
+    gotoSlide(0);
+    createDots();
+    activateDots(0);
+  };
+  init();
+
+  //dot click
+  dotContainer.addEventListener('click', function (e) {
+    if (e.target.classList.contains('dots__dot')) {
+      const { slide } = e.target.dataset;
+      gotoSlide(slide);
+      activateDots(slide);
+    }
   });
+
 }
 
-gotoSlide(0);
-console.log(maxSlide);
-//next slide 
-const nextSlide = function () {
-  if (currentSlide === maxSlide) {
-    currentSlide = 0;
-  } else {
-    currentSlide++;
-  }
-  gotoSlide(currentSlide);
-}
+slideShow();
+// img/img-2.jpg
 
-const prevSlide = () => {
-  if (currentSlide === 0) {
-    currentSlide = maxSlide - 1;
-  } else {
-    currentSlide--;
-  }
-  gotoSlide(currentSlide);
-}
-
-btnRight.addEventListener('click', nextSlide);
-
-btnLeft.addEventListener('click', prevSlide);
 /** 
  * //Sticky navigation bar/ header
 
