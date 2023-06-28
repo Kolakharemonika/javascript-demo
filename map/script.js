@@ -33,7 +33,13 @@ if (navigator.geolocation) {
             const { lat, lng } = mapEvent.latlng;
 
             L.marker([lat, lng]).addTo(map)
-                .bindPopup('Workout')
+                .bindPopup(L.popup({
+                    maxWidth: 250,
+                    minWidth: 100,
+                    autoClose: false,
+                    closeOnClick: false,
+                    className: 'running-popup'
+                }))
                 .openPopup();
         })
         // console.log(`https://www.google.com/maps/@${latitude},${longitude}`);
