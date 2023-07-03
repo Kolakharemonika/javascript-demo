@@ -234,7 +234,7 @@ setTimeout(() => {
 
 //error handling
 const getCountryData = function (countryCode) {
-    const req = fetch(`https://restcountries.com/v3.1/alpha/${countryCode}`).then(response => response.json(), err => alert(err)).then((data) => {
+    const req = fetch(`https://restcountries.com/v3.1/alpha/${countryCode}`).then(response => response.json()).then((data) => {
         //country    
         renderCountry(data[0]);
 
@@ -245,9 +245,14 @@ const getCountryData = function (countryCode) {
         //neighbour
         return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`);
 
-    }).then((response) => response.json(), err => alert(err)).then((data) => {
+    }).then((response) => response.json()).then((data) => {
         renderCountry(data[0], 'neighbour');
-    });
+    }).catch(err => alert(err));
+
+
+    // then((response) => response.json(), err => alert(err)).then((data) => {
+    //     renderCountry(data[0], 'neighbour');
+    // });
 }
 
 btn.addEventListener('click', function () {
