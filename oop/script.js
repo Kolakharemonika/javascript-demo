@@ -73,12 +73,12 @@ mk.calcAge();
 
 const btn = document.querySelector('.btn-country');
 const countriesContainer = document.querySelector('.countries');
-
+let html;
 const renderCountry = (data, className = '') => {
     const { name, symbol } = Object.values(data.currencies)[0];
     const lang = Object.values(data.languages).join(' ');
 
-    const html = `<article class="country ${className}">
+    html = `<article class="country ${className}">
              <img class="country__img" src="${data.flags.svg}" />
         <div class="country__data">
           <h3 class="country__name">${data.name.common}</h3>
@@ -159,3 +159,27 @@ setTimeout(() => {
         }, 1000);
     }, 1000);
 }, 1000);
+
+//we are fetching data as promise
+// const req = fetch(`https://restcountries.com/v3.1/name/${countryName}`);
+// console.log(req); //it execute first
+
+// const getCountryData = function (countryName) {
+//     // const req = fetch(`https://restcountries.com/v3.1/name/${countryName}`).then(function (response) {
+//     //     console.log(response);
+//     // });
+
+//     const req = fetch(`https://restcountries.com/v3.1/alpha/${countryName}`).then(function (response) {
+//         console.log(response);
+//         return response.json();
+//     }).then(function (data) {
+//         [data] = data
+//         console.log(data);
+//         renderCountry(data);
+//     });
+// }
+
+const getCountryData = function (countryName) {
+    const req = fetch(`https://restcountries.com/v3.1/alpha/${countryName}`).then((response) => response.json()).then((data) => renderCountry(data[0]));
+}
+getCountryData('CN');
