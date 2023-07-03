@@ -138,7 +138,7 @@ const getCountryAndNeighbour = (countryName) => {
         // } 
         //or
 
-        const [neighbour] = 'data.borders';
+        const [neighbour] = data.borders;
         renderNeighbour(neighbour);
         // console.log(neighbour);
     })
@@ -237,26 +237,28 @@ const renderError = function (msg) {
     countriesContainer.insertAdjacentText('beforeend', msg);
     // countriesContainer.style.opacity = 1; //in finally we write
 }
+
+const getJSON = function (url, errorMsg = 'Something went wrong!') {
+    return fetch(url).then(response => {
+        if (!response.ok) throw new Error(`${errorMsg} (${response.status})`);
+        return response.json();
+    })
+}
+
 //catch error
 const getCountryData = function (countryCode) {
-    const req = fetch(`https://restcountries.com/v3.1/alpha/${countryCode}`).then(response => {
-        if (!response.ok) throw new Error(`Country not found ${response.status}`);
-        return response.json();
-    }).then((data) => {
+    const req = getJSON(`https://restcountries.com/v3.1/alpha/${countryCode}`, 'Country not found').then((data) => {
         //country    
         renderCountry(data[0]);
 
         const neighbour = data[0].borders[0];
         console.log(neighbour);
 
-        if (!neighbour) return;
-        //neighbour country
-        return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`);
+        if (!neighbour) throw new Error('No neighbour found!');
 
-    }).then((response) => {
         //neighbour country
-        if (!response.ok) throw new Error(`Country not found ${response.status}`);
-        return response.json()
+        return getJSON(`https://restcountries.com/v3.1/alpha/${neighbour}`, 'Country not found');
+
     }).then((data) => {
         renderCountry(data[0], 'neighbour');
     }).catch(err => {
@@ -273,4 +275,4 @@ btn.addEventListener('click', function () {
     getCountryData('CN'); //using fetch method
 });
 
-getCountryData('germany'); //error shown on screen
+// getCountryData('germany'); //error shown on screen
