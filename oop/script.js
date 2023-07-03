@@ -144,7 +144,8 @@ const getCountryAndNeighbour = (countryName) => {
     })
 }
 
-getCountryAndNeighbour('india');
+//fiirst type
+// getCountryAndNeighbour('india');
 
 //callback hell example
 setTimeout(() => {
@@ -213,9 +214,27 @@ setTimeout(() => {
 //     });
 // }
 
-//best to do this chaining of promises
+// //best to do this chaining of promises
+// const getCountryData = function (countryCode) {
+//     const req = fetch(`https://restcountries.com/v3.1/alpha/${countryCode}`).then((response) => response.json()).then((data) => {
+//         //country    
+//         renderCountry(data[0]);
+
+//         const neighbour = data[0].borders[0];
+//         console.log(neighbour);
+
+//         if (!neighbour) return;
+//         //neighbour
+//         return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`);
+
+//     }).then((response) => response.json()).then((data) => {
+//         renderCountry(data[0], 'neighbour');
+//     });
+// }
+
+//error handling
 const getCountryData = function (countryCode) {
-    const req = fetch(`https://restcountries.com/v3.1/alpha/${countryCode}`).then((response) => response.json()).then((data) => {
+    const req = fetch(`https://restcountries.com/v3.1/alpha/${countryCode}`).then(response => response.json(), err => alert(err)).then((data) => {
         //country    
         renderCountry(data[0]);
 
@@ -226,8 +245,12 @@ const getCountryData = function (countryCode) {
         //neighbour
         return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`);
 
-    }).then((response) => response.json()).then((data) => {
+    }).then((response) => response.json(), err => alert(err)).then((data) => {
         renderCountry(data[0], 'neighbour');
     });
 }
-getCountryData('CN');
+
+btn.addEventListener('click', function () {
+    getCountryAndNeighbour('india'); //using XMLReq get method
+    getCountryData('CN'); //using fetch method
+}) 
