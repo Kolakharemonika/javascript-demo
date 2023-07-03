@@ -118,14 +118,12 @@ const getCountryAndNeighbour = (countryName) => {
         const [data] = JSON.parse(this.responseText);
         console.log(data);
 
-
-
         // Object.entries(data.currencies).filter(lang => console.log(lang[1].name));
         // const currency = Object.values(data.currencies)[0].name;
         // const { name, symbol } = Object.values(data.currencies)[0];
         // console.log(name, symbol);
 
-        let langs = []
+        // let langs = []
         // Object.entries(data?.languages).filter(lang => langs.push(lang[1]));
         // Object.values(data.languages).join(' ');
 
@@ -135,11 +133,13 @@ const getCountryAndNeighbour = (countryName) => {
         //render neighbour country
         if (!data.borders) return;
 
-        for (const country of data.borders) {
-            renderNeighbour(country);
-        }
-        // const [neighbour] = data.borders;
-        // renderNeighbour(neighbour);
+        // for (const country of data.borders) {
+        //     renderNeighbour(country);
+        // } 
+        //or
+
+        const [neighbour] = data.borders;
+        renderNeighbour(neighbour);
         // console.log(neighbour);
     })
 }
