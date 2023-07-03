@@ -179,7 +179,55 @@ setTimeout(() => {
 //     });
 // }
 
-const getCountryData = function (countryName) {
-    const req = fetch(`https://restcountries.com/v3.1/alpha/${countryName}`).then((response) => response.json()).then((data) => renderCountry(data[0]));
+// const getCountryData = function (countryCode) {
+//     const req = fetch(`https://restcountries.com/v3.1/alpha/${countryCode}`).then((response) => response.json()).then((data) => {
+//         //country    
+//         renderCountry(data[0]);
+
+//         const neighbour = data[0].borders[0];
+//         console.log(neighbour);
+
+//         if (!neighbour) return;
+//         //neighbour
+//         return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`).then((response) => response.json()).then((data) => renderCountry(data[0], 'neighbour'));
+
+//     });
+// }
+
+
+//callback hell
+// const getCountryData = function (countryCode) {
+//     const req = fetch(`https://restcountries.com/v3.1/alpha/${countryCode}`).then((response) => response.json()).then((data) => {
+//         //country    
+//         renderCountry(data[0]);
+
+//         const neighbour = data[0].borders[0];
+//         console.log(neighbour);
+
+//         if (!neighbour) return;
+//         //neighbour
+//         return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`).then((response) => response.json()).then((data) => data)
+
+//     }).then((data) => {
+//         renderCountry(data[0], 'neighbour');
+//     });
+// }
+
+//best to do this chaining of promises
+const getCountryData = function (countryCode) {
+    const req = fetch(`https://restcountries.com/v3.1/alpha/${countryCode}`).then((response) => response.json()).then((data) => {
+        //country    
+        renderCountry(data[0]);
+
+        const neighbour = data[0].borders[0];
+        console.log(neighbour);
+
+        if (!neighbour) return;
+        //neighbour
+        return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`);
+
+    }).then((response) => response.json()).then((data) => {
+        renderCountry(data[0], 'neighbour');
+    });
 }
 getCountryData('CN');
