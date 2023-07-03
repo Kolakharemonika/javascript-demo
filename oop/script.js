@@ -45,3 +45,28 @@ Person.prototype.calcAge = function () {
 
 mk.calcAge();
 
+/**
+ * Synchronous 
+ * line by line execution
+ * ex line of code and alert window
+ * blocking
+ * waiting for finidh line of code
+ * 
+ * Asynchronous
+ * line of code & setTimeout-timer fn
+ * (setTimeout running in background)
+ * non-blocking
+ * doesn't wait for finish its work
+ */
+
+//asynchronous
+const img = document.querySelector('.dog');
+img.src = '/img/inverted-dice-6.svg';
+img.addEventListener('load', function () {
+    img.classList.add('fadeIn'); //blur img
+});
+
+document.querySelector('p').style.width = '300px';
+
+//search public APIS
+// https://countries-api-836d.onrender.com/countries/

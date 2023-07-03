@@ -54,3 +54,10 @@ if (navigator.geolocation) {
         alert('could not get your position')
     });
 }
+
+function reset() {
+    localStorage.removeItem('latkng');
+    localStorage.removeItem('lnglat');
+
+    location.reload();
+}
