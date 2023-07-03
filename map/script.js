@@ -31,6 +31,13 @@ if (navigator.geolocation) {
         map.on('click', function (mapEvent) {
             console.log(mapEvent);
             const { lat, lng } = mapEvent.latlng;
+            // localStorage.setItem('latkng', mapEvent.latlng);
+            // const lngs = localStorage.getItem('latkng');
+            // console.log(lngs); // LatLng(18.580542, 73.779202)
+
+            localStorage.setItem('lnglat', JSON.stringify(mapEvent.latlng));
+            const lnglat = JSON.parse(localStorage.getItem('lnglat'));
+            console.log(lnglat); // {lat: 18.57875352190131, lng: 73.77714157104494}
 
             L.marker([lat, lng]).addTo(map)
                 .bindPopup(L.popup({
