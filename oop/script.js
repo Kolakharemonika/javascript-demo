@@ -74,44 +74,75 @@ mk.calcAge();
 const btn = document.querySelector('.btn-country');
 const countriesContainer = document.querySelector('.countries');
 
+const renderCountry = (data, className = '') => {
+    const { name, symbol } = Object.values(data.currencies)[0];
+    const lang = Object.values(data.languages).join(' ');
 
-const getCountryByname = (countryName) => {
+    const html = `<article class="country ${className}">
+             <img class="country__img" src="${data.flags.svg}" />
+        <div class="country__data">
+          <h3 class="country__name">${data.name.common}</h3>
+          <h4 class="country__region">${data.region}</h4>
+          <p class="country__row"><span>👫</span>${(+data.population / 1000000).toFixed(1)} people</p>
+         <p class="country__row"><span>🗣️</span>${lang}</p>
+          <p class="country__row"><span>💰</span>${name} : ${symbol}</p>
+        </div>  </article>`;
+
+    countriesContainer.insertAdjacentHTML('beforeend', html)
+    countriesContainer.style.opacity = 1;
+
+}
+
+function renderNeighbour(countryCode) {
+    const request = new XMLHttpRequest();
+
+    request.open('GET', `https://restcountries.com/v3.1/alpha/${countryCode}`);
+    request.send();
+
+    request.addEventListener('load', function (e) {
+        e.preventDefault()
+        const [data] = JSON.parse(this.responseText);
+        renderCountry(data, 'neighbour')
+    })
+}
+
+const getCountryAndNeighbour = (countryName) => {
     const request = new XMLHttpRequest();
     // https://restcountries.com/v3.1/name/{name} //https://restcountries.com/ website
     request.open('GET', `https://restcountries.com/v3.1/name/${countryName}`);
     request.send();
 
-    request.addEventListener('load', function () {
+    request.addEventListener('load', function (e) {
+        e.preventDefault()
         // const data = JSON.parse(this.responseText);
         const [data] = JSON.parse(this.responseText);
         console.log(data);
 
+
+
         // Object.entries(data.currencies).filter(lang => console.log(lang[1].name));
         // const currency = Object.values(data.currencies)[0].name;
-        const { name, symbol } = Object.values(data.currencies)[0];
+        // const { name, symbol } = Object.values(data.currencies)[0];
         // console.log(name, symbol);
 
         let langs = []
         // Object.entries(data?.languages).filter(lang => langs.push(lang[1]));
         // Object.values(data.languages).join(' ');
 
-        const countryEl = document.querySelector('.countries')
-        const html = `<article class="country">
-             <img class="country__img" src="${data.flags.svg}" />
-        <div class="country__data">
-          <h3 class="country__name">${data.name.common}</h3>
-          <h4 class="country__region">${data.region}</h4>
-          <p class="country__row"><span>👫</span>${(+data.population / 1000000).toFixed(1)} people</p>
-         <p class="country__row"><span>🗣️</span>${Object.values(data.languages).join(' ')}</p>
-          <p class="country__row"><span>💰</span>${name} : ${symbol}</p>
-        </div>  </article>`;
-        countryEl.insertAdjacentHTML('beforeend', html)
-        countryEl.style.opacity = 1;
+        //render country
+        renderCountry(data);
+
+        //render neighbour country
+        if (!data.borders) return;
+
+        for (const country of data.borders) {
+            renderNeighbour(country);
+        }
+        // const [neighbour] = data.borders;
+        // renderNeighbour(neighbour);
+        // console.log(neighbour);
     })
 }
 
+getCountryAndNeighbour('india');
 
-getCountryByname('india');
-getCountryByname('usa');
-getCountryByname('pakistan');
-getCountryByname('nepal');
