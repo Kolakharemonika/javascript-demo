@@ -12,7 +12,9 @@
 //   document.querySelector(".modal").style.opacity = 0;
 //   document.querySelector(".ovrlay").style.opacity = 1;
 // });
+import './demo.js';
 
+console.log('thhhhhhhhssssssssssssss');
 "use strict";
 
 const modal = document.querySelector(".modal");
