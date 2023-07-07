@@ -295,21 +295,31 @@ const getPosition = () => {
         navigator.geolocation.getCurrentPosition(resolve, reject);
     })
 }
-getPosition().then(pos => console.log(pos));
+// getPosition().then(pos => console.log(pos));
 
 //not need to callback, very simply we can fetch promise
 const whereAmI = async function (country) {
 
-    const res = await fetch(`https://restcountries.com/v3.1/name/${country}`)
+    const pos = await getPosition();
+    const { latitude: lat, longitude: lng } = pos.coords;
+    console.log(lat, lng);
+
+    //countrt  by geoposition --reverse geocoding
+    const resGeo = await fetch(`https://geocode.xyz/${pos.coords.latitude},${pos.coords.longitude}?geoit=json`)
+    const dataGeo = await resGeo.json()
+    console.log(dataGeo.country, 'dataGeo');
+
+    console.log(dataGeo, 'dataGeo');
+    const res = await fetch(`https://restcountries.com/v3.1/name/${dataGeo.country}`)
     const data = await res.json();
     console.log(data[0]);
-    renderCountry(data[0])
+    // renderCountry(data[0])
     /**
      * same as
      *without async await --> fetch(`https://restcountries.com/v3.1/name/${country}`).then(res=>console.log(res))
      */
 }
 whereAmI('india');
-console.log('jjjj');
+
 
 
