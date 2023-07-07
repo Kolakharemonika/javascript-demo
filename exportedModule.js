@@ -1,7 +1,10 @@
 console.log('this module is exporting');
 const shippigCost = 10; //this is private 
-const cart = [];
+// const cart = [];
 
+
+//we are exporting 
+export const cart = [];
 //simple function
 // const addToCart = function (product, quantity) {
 //     cart.push({ product, quantity });
@@ -18,4 +21,10 @@ const totalPrice = 237;
 const totalQuantity = 23;
 
 //we can also export this 
-export { totalPrice as price, totalQuantity }
+export { totalPrice as price, totalQuantity };
+
+//default export 
+export default function (product, quantity) {
+    cart.push({ product, quantity });
+    console.log(` ${quantity} ${product} added to Cart`);
+}
