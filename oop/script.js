@@ -89,7 +89,7 @@ const renderCountry = (data, className = '') => {
         </div>  </article>`;
 
     countriesContainer.insertAdjacentHTML('beforeend', html)
-    // countriesContainer.style.opacity = 1; //in finally we write
+    countriesContainer.style.opacity = 1; //in finally we write
 
 }
 
@@ -271,8 +271,45 @@ const getCountryData = function (countryCode) {
 }
 
 btn.addEventListener('click', function () {
-    getCountryAndNeighbour('india'); //using XMLReq get method
-    getCountryData('CN'); //using fetch method
+    // getCountryAndNeighbour('india'); //using XMLReq get method
+    // getCountryData('CN'); //using fetch method
 });
 
 // getCountryData('germany'); //error shown on screen
+
+
+// const req = new XMLHttpRequest();
+// req.open('GET', 'https://covid-api.mmediagroup.fr/v1/history');
+// req.send();
+
+// req.addEventListener('load', function (request) {
+
+//     console.log(request);
+// })
+
+const getPosition = () => {
+    return new Promise(function (resolve, reject) {
+        // navigator.geolocation.getCurrentPosition(pos => resolve(pos), err => reject(err));
+
+        //both method is same
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+    })
+}
+getPosition().then(pos => console.log(pos));
+
+//not need to callback, very simply we can fetch promise
+const whereAmI = async function (country) {
+
+    const res = await fetch(`https://restcountries.com/v3.1/name/${country}`)
+    const data = await res.json();
+    console.log(data[0]);
+    renderCountry(data[0])
+    /**
+     * same as
+     *without async await --> fetch(`https://restcountries.com/v3.1/name/${country}`).then(res=>console.log(res))
+     */
+}
+whereAmI('india');
+console.log('jjjj');
+
+
