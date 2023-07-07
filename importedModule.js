@@ -34,3 +34,27 @@ add('pizza', 2); // 2 pizza added to Cart
 add('lichi', 2);
 add('chips', 2);
 console.log(cart, 'cart'); //cart is not empty
+
+//ES 6
+//top level awaits
+// fake API
+// await function blocking entire application
+// const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+// const data = await res.json();
+// console.log(data);
+
+const getLastPost = async function () {
+    const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+    const data = await res.json();
+    console.log(data);
+
+    return { title: data.at(-1).title, text: data.at(-1).body }
+}
+
+const lastpost = getLastPost();
+console.log(lastpost); //promise empty 
+
+// lastpost.then(last => console.log(last)) //title and text
+//same as below
+const lastPosts = await getLastPost(); //title and text
+console.log(lastPosts);
