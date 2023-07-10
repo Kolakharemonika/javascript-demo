@@ -5,6 +5,12 @@ const shippigCost = 10; //this is private
 
 //we are exporting 
 export const cart = [];
+
+//blocking code
+// console.log('start fetchiing users');
+// const res = await fetch('https://jsonplaceholder.typicode.com/users');
+// const data = await res.json();
+
 //simple function
 // const addToCart = function (product, quantity) {
 //     cart.push({ product, quantity });
