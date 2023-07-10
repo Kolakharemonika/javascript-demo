@@ -1,0 +1,24 @@
+{
+  "name": "forkify",
+  "version": "1.0.0",
+  "description": "Recipe application",
+  "main": "forkify/home.html",
+  "scripts": {
+    "start": "parcel forkify/home.html",
+    "build": "parcel build forkify/home.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kolakharemonika/javascript-demo.git"
+  },
+  "author": "Monika Kolakhare",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kolakharemonika/javascript-demo/issues"
+  },
+  "homepage": "https://github.com/Kolakharemonika/javascript-demo#readme",
+  "devDependencies": {
+    "parcel": "^2.0.0-rc.0"
+  }
+}
