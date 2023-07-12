@@ -15,6 +15,7 @@ class RecipeView {
     #clear() {
         this.#parentElement.innerHTML = '';
     }
+
     renderSpinner = function () {
         const markup = `<div class="spinner"><svg class="nav__icon ">
                 <use href="img/icons.svg#icon-loader"></use>
@@ -26,7 +27,7 @@ class RecipeView {
 
     #generateMarkup() {
         return ` <div class="recipe-head " >  <img src="${this.#data.imageUrl}" alt="recipe_image">
-                        <h3 class="heading--1"><span>${this.#data.title}</span></h3>
+                        <h3 class="heading--1"><span>${(this.#data.title).toUpperCase()}</span></h3>
                          <div class="recipe-icons"><svg class="nav__icon ">
                         <use href="img/icons.svg#icon-search"></use>
                     </svg>

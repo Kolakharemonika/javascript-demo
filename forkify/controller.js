@@ -3,6 +3,7 @@
 // import { loadRecipe, state } from './model.js'
 import * as model from './model.js';
 import recipeView from './recipeView.js'
+import { API_URL } from './config.js'
 
 const recipeContainer = document.querySelector('.recipe-container');
 const searchResult = document.querySelector('.section-search-results');
@@ -44,7 +45,7 @@ const showRecipe = async function (recipeId) {
 
 const showSerachResult = async function (recipeName) {
     try {
-        const res = await fetch(`https://forkify-api.herokuapp.com/api/search?q=${recipeName}`);
+        const res = await fetch(`${API_URL}/search?q=${recipeName}`);
         const data = await res.json();
         console.log(res, data);
 
@@ -62,7 +63,7 @@ const showSerachResult = async function (recipeName) {
                         <img src="${recipe.image_url}" alt="">
                     </div>
                     <span class="flex-row pt-10 recipe-dec">
-                        <span class="heading--3">${recipe.title?.length >= 30 ? recipe.title.slice(0, 30) + '...' : recipe.title}</span>
+                        <span class="heading--3">${recipe.title?.length >= 30 ? (recipe.title.slice(0, 30)).toUpperCase() + '...' : (recipe.title).toUpperCase()}</span>
                         <span>${recipe.publisher}</span>
                     </span>
                 </div>  </button>`}).join('')}       
