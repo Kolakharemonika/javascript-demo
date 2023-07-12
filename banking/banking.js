@@ -148,7 +148,7 @@ const startLogouttimer = () => {
     }
 
     // set time to 5 mins 
-    let time = 300;
+    let time = 120;
 
     //call the timer every seconds 
     tick();
@@ -185,7 +185,7 @@ const formatCur = (value, locale, currency) => {
         currency: currency
     }).format(value)
 }
-
+console.log(new Date());
 const formatMovementDate = (date, locale) => {
 
     const calDayPassed = (date1, date2) => { return Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24)) };
@@ -281,7 +281,7 @@ btnLogin.addEventListener('click', (e) => {
 
 function timerStart() {
     let interval = 1;
-    let hours = 4; //we can change
+    let hours = 2; //we can change
 
     MinsTimer = setInterval(() => {
         let minutes = 60;
@@ -299,7 +299,7 @@ function timerStart() {
 
     }, 1000);
 }
-
+// timerStart();
 function logout() {
     if (MinsTimer) clearInterval(MinsTimer);
     currentAcc = {};

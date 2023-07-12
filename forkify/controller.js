@@ -3,6 +3,7 @@
 // import { loadRecipe, state } from './model.js'
 import * as model from './model.js';
 import recipeView from './recipeView.js'
+import searchView from './searchView.js'
 import { API_URL } from './config.js'
 
 const recipeContainer = document.querySelector('.recipe-container');
@@ -43,39 +44,19 @@ const showRecipe = async function (recipeId) {
 // https://forkify-api.herokuapp.com/api/search?q=pizza
 
 
-const showSerachResult = async function (recipeName) {
+const showSerachResult = async function () {
     try {
-        const res = await fetch(`${API_URL}/search?q=${recipeName}`);
-        const data = await res.json();
-        console.log(res, data);
 
-        if (!res.ok) throw new Error(`${data.error} (${res.status})`);
+        //get serach Input here
+        let recipeName = searchView.getQuery();
+        if (!recipeName) return;
 
-        let recipeList = data.recipes?.length > 10 ? data.recipes?.slice(0, 10) : data.recipes
-        console.log(recipeList, recipeList.length);
+        recipeView.renderSpinner(searchResult);
 
+        //load search result
+        await model.loadSearchResults(recipeName); //receiving promise , return nothing
 
-        if (!res.ok) throw new Error(`${data.error} (${res.status})`);
-        let html = `${recipeList.map(recipe => {
-            return ` <button class="btn--recipes " id="${recipe.recipe_id}"><div class="recipee flex" >
-                    <div class="recipe-img flex">
-
-                        <img src="${recipe.image_url}" alt="">
-                    </div>
-                    <span class="flex-row pt-10 recipe-dec">
-                        <span class="heading--3">${recipe.title?.length >= 30 ? (recipe.title.slice(0, 30)).toUpperCase() + '...' : (recipe.title).toUpperCase()}</span>
-                        <span>${recipe.publisher}</span>
-                    </span>
-                </div>  </button>`}).join('')}       
-        
-        `
-        html += `<div>
-                    <span><a href="#">Page 1</a></span>
-                    <span class="float-rt"><a href="#">Page 2</a></span>
-                </div>`
-        searchResult.innerHTML = '';
-        recipeContainer.innerHTML = '';
-        searchResult.insertAdjacentHTML('afterbegin', html);
+        searchView.render(model.state.search.results);
 
         const btnRecipe = document.querySelectorAll('.btn--recipes');
         console.log('this is');
@@ -93,15 +74,7 @@ const showSerachResult = async function (recipeName) {
 
             })
         })
-        // let recipe = data.recipe;
-        // console.log(recipe);
-        // recipe = {
-        //     id: recipe.recipe_id,
-        //     title: recipe.title,
-        //     image: recipe.image_url,
-        //     publisher: recipe.publisher,
-        // }
-        // console.log(recipe);
+
     } catch (err) {
         alert(err)
     }
