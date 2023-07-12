@@ -1,90 +1,39 @@
 // import icons from 'url:./img/icons.svg'
 // console.log(icons);
-// import 
+// import { loadRecipe, state } from './model.js'
+import * as model from './model.js';
+import recipeView from './recipeView.js'
+
 const recipeContainer = document.querySelector('.recipe-container');
 const searchResult = document.querySelector('.section-search-results');
-// 
+
 const serachRecipeName = document.getElementById('search-input');
 const btnSearch = document.querySelector('.btn__search');
 const welcomeMsg = document.querySelector('.recipe-message')
 
-const renderSpinner = function (parentEl) {
-    const markup = `<div class="spinner"><svg class="nav__icon ">
-                <use href="img/icons.svg#icon-loader"></use>
-            </svg>
-        </div>`;
-    parentEl.innerHTML = '';
-    parentEl.insertAdjacentHTML('afterbegin', markup);
-}
+
 
 const showRecipe = async function (recipeId) {
     try {
+
+        //method to make constant hash
+        // console.log(window.location.hash, 'window.location.hash');
+        // const id = window.location.hash.slice(1); //remove #
+        //  https://forkify-api.herokuapp.com/api/v2/recipes/#256f26 change this        
+        // const res = await fetch(` https://forkify-api.herokuapp.com/api/v2/recipes/${id}`);
+
+
         //loading recipe
-        renderSpinner(recipeContainer);
+        recipeView.renderSpinner(recipeContainer);
 
-        const res = await fetch(`https://forkify-api.herokuapp.com/api/get?rId=${recipeId}`);
-        const data = await res.json();
-        console.log(data, res);
-        if (!res.ok) throw new Error(`${data.error} (${res.status})`);
+        await model.loadRecipe(recipeId); //receiving promise , return nothing
 
-        let recipe = data.recipe;
-        console.log(recipe);
-
-        recipe = {
-            id: recipe.recipe_id,
-            title: recipe.title,
-            publisher: recipe.publisher,
-            sourceUrl: recipe.source_url,
-            imageUrl: recipe.image_url,
-            ingredients: recipe.ingredients
-        }
         welcomeMsg.innerHTML = '';
-        console.log(recipe);
-        const html = `   <div class="recipe-head " >
-                        <img src="${recipe.imageUrl}" alt="recipe_image">
-                        <h3 class="heading--1"><span>${recipe.title}</span></h3>
-                         <div class="recipe-icons"><svg class="nav__icon ">
-                        <use href="img/icons.svg#icon-search"></use>
-                    </svg>
-                    <svg class="nav__icon float-rt btn--round">
-                        <use href="img/icons.svg#icon-bookmark-fill"></use>
-                    </svg>
-                </div>
-                    </div>
-                    <div class="p-10">
-                        <h3 class="heading--2">RECIPE INGREDIENTS</h3>
-                        <div class="ingredients-list ">
-                           
-                            ${recipe.ingredients.map((ing, i) => {
-            // console.log(i, ing);
-            if (i <= 10) {
-                return `<div class="ingredient flex" >
-                                    <svg class="nav__icon">
-                                        <use href="img/icons.svg#icon-check"></use>
-                                    </svg>
-                                    <span class="ingredient-dec">${ing}</span>
-                                </div>`
-            }
-        }).join(' ')}                                  
-                                                           
-                            
-                        </div>
-                           <div>
-                    <h3 class="heading--2"><span>HOW TO COOK IT</span></h3>
-                    <p>This recipe was carefully designed and tested by <strong> ${recipe.publisher}</strong>. Please check out directions at
-                        their website.</p>
 
-                    <button class="nav__btn btn button flex btn-download-recipe">
-                        <a
-                            href="${recipe.sourceUrl}"><span>DOWNLOAD</span></a>
-                        <svg class="nav__icon fill-white">
-                            <use href="img/icons.svg#icon-arrow-right"></use>
-                        </svg>
-                    </button>
-                </div>
-                    </div>`;
-        recipeContainer.innerHTML = '';
-        recipeContainer.insertAdjacentHTML('afterbegin', html)
+        //render data 
+        recipeView.render(model.state.recipe);
+
+
     } catch (err) {
         alert(err)
     }
@@ -124,6 +73,7 @@ const showSerachResult = async function (recipeName) {
                     <span class="float-rt"><a href="#">Page 2</a></span>
                 </div>`
         searchResult.innerHTML = '';
+        recipeContainer.innerHTML = '';
         searchResult.insertAdjacentHTML('afterbegin', html);
 
         const btnRecipe = document.querySelectorAll('.btn--recipes');
@@ -192,3 +142,12 @@ serachRecipeName.addEventListener('keypress', function (e) {
 //     const newVal = Number(((event.target.value - min) * 100) / (max - min));
 //     bubble.style.left = `calc(${newVal}% + (${8 - newVal * 0.15}px))`;
 // });
+
+
+//hash related code
+// window.addEventListener('hashchange', showRecipe('28924'));
+// window.addEventListener('load', showRecipe('28924'));
+
+
+//more than one event
+// ['hashchange', 'load'].forEach(ev => window.addEventListener(ev, showRecipe('28924')))
