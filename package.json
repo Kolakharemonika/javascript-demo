@@ -2,7 +2,7 @@
   "name": "forkify",
   "version": "1.0.0",
   "description": "Recipe application",
-  "main": "forkify/home.html",
+  "main": "forkify/home.js",
   "scripts": {
     "start": "parcel forkify/home.html",
     "build": "parcel build forkify/home.html",
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Kolakharemonika/javascript-demo#readme",
   "devDependencies": {
+    "@parcel/transformer-image": "^2.0.0-rc.0",
     "parcel": "^2.0.0-rc.0"
   }
 }

@@ -1,4 +1,5 @@
 <!-- https://forkify-v2.netlify.app/ -->
+<!-- https://forkify-api.herokuapp.com/ API -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,18 +8,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
-    <script defer src="home.js"></script>
+    <script defer src="home.js" type="module"></script>
 </head>
 
 <body>
     <div class="main-container">
 
-        <header class="header pd-10">
+        <header class="header p-10 flex">
             <img src="img/logo.png" alt="" width="120px" height="35px">
+
+            <!-- <div class="range-wrap">
+                <input type="range" id="points" name="points" min="0" max="100">
+
+                <output class="bubble"></output>
+            </div> -->
             <div class="flex">
                 <div class="search ">
-                    <input type="text" class="search-input">
-                    <button class="btn__search pd-10">
+                    <input type="text" class="search-input" id="search-input">
+                    <button class="btn__search p-10 btn flex float-rt">
                         <svg class="nav__icon ">
                             <use href="img/icons.svg#icon-search"></use>
                         </svg>
@@ -28,14 +35,14 @@
                     </button>
                 </div>
 
-                <button class="nav__btn nav__btn--add-recipe pd-10">
+                <button class="nav__btn btn">
                     <svg class="nav__icon">
                         <use href="img/icons.svg#icon-edit"></use>
                     </svg>
                     <span>Add recipe</span>
                 </button>
 
-                <button class="nav__btn nav__btn--add-recipe  pd-10">
+                <button class="nav__btn btn">
                     <svg class="nav__icon">
                         <use href="img/icons.svg#icon-bookmark"></use>
                     </svg>
@@ -48,17 +55,34 @@
 
 
         <div class="container flex">
-            <section class="section-search-results pd-10">
-                <!-- 33% -->tjtyjty
+            <section class="section-search-results p-10">
+                <!-- <button class="btn--recipes ">
+                    <div class="recipee flex" id="123">
+                        <div class="recipe-img flex">
+                            <div class="">
+
+                                <img src="http://forkify-api.herokuapp.com/images/best_pizza_dough_recipe1b20.jpg"
+                                    alt="">
+                            </div>
+                        </div>
+                        <span class="flex-row pt-10">
+                            <span class="heading--3">Best Pizza Dough Ever</span>
+                            <span>101 Cookbooks</span>
+                        </span>
+                    </div>
+                </button> -->
             </section>
-            <section class="section-right pd-10">
-                <svg class="nav__icon">
-                    <use href="img/icons.svg#icon-smile"></use>
-                </svg>
-                <span>Start by searching for a recipe or an ingredient. Have fun!</span>
+            <section class="section-recipe-info">
+                <div class="recipe-container">
+                    <svg class="nav__icon">
+                        <use href="img/icons.svg#icon-smile"></use>
+                    </svg>
+                    <span>Start by searching for a recipe or an ingredient. Have fun!</span>
+                </div>
+
+
             </section>
         </div>
-        <!-- <footer></footer> -->
     </div>
 
 
