@@ -7,11 +7,20 @@ const searchResult = document.querySelector('.section-search-results');
 const serachRecipeName = document.getElementById('search-input');
 const btnSearch = document.querySelector('.btn__search');
 
-// 
-// search-input
+
+const renderSpinner = function (parentEl) {
+    const markup = `<div class="spinner"><svg class="nav__icon ">
+                <use href="img/icons.svg#icon-loader"></use>
+            </svg>
+        </div>`;
+    parentEl.insertAdjacentHTML('afterbegin', markup)
+}
 
 const showRecipe = async function (recipeId) {
     try {
+        //loading recipe
+        renderSpinner(recipeContainer);
+
         const res = await fetch(`https://forkify-api.herokuapp.com/api/get?rId=${recipeId}`);
         const data = await res.json();
         console.log(data, res);
@@ -79,8 +88,9 @@ const showRecipe = async function (recipeId) {
         alert(err)
     }
 }
-showRecipe('28924');
+// showRecipe('28924');
 // https://forkify-api.herokuapp.com/api/search?q=pizza
+
 
 const showSerachResult = async function (recipeName) {
     try {

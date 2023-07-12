@@ -111,6 +111,28 @@ svg {
     padding: 0px;
 }
 
+.spinner {
+    margin: 5rem auto;
+    text-align: center;
+}
+
+.spinner svg {
+    width: 6%;
+    height: 3%;
+    fill: #f38e82;
+    animation: rotate 2s infinite linear;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 .heading--1 {
     position: absolute;
     /* width: 350px; */
