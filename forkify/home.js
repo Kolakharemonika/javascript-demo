@@ -1,19 +1,20 @@
-// import icons from './img/icons.svg'
+// import icons from 'url:./img/icons.svg'
 // console.log(icons);
-
+// import 
 const recipeContainer = document.querySelector('.recipe-container');
 const searchResult = document.querySelector('.section-search-results');
 // 
 const serachRecipeName = document.getElementById('search-input');
 const btnSearch = document.querySelector('.btn__search');
-
+const welcomeMsg = document.querySelector('.recipe-message')
 
 const renderSpinner = function (parentEl) {
     const markup = `<div class="spinner"><svg class="nav__icon ">
                 <use href="img/icons.svg#icon-loader"></use>
             </svg>
         </div>`;
-    parentEl.insertAdjacentHTML('afterbegin', markup)
+    parentEl.innerHTML = '';
+    parentEl.insertAdjacentHTML('afterbegin', markup);
 }
 
 const showRecipe = async function (recipeId) {
@@ -37,7 +38,7 @@ const showRecipe = async function (recipeId) {
             imageUrl: recipe.image_url,
             ingredients: recipe.ingredients
         }
-
+        welcomeMsg.innerHTML = '';
         console.log(recipe);
         const html = `   <div class="recipe-head " >
                         <img src="${recipe.imageUrl}" alt="recipe_image">
