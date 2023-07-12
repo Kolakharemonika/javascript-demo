@@ -1,34 +1,24 @@
-class SearchView {
-    _parentEl = document.querySelector('.section-search-results');
-    _recipeList;
 
+import View from './view.js'
+
+class SearchView extends View {
+    _parentElement = document.querySelector('.section-search-results');
+    searchinput = document.getElementById('search-input');
 
     getQuery() {
-        const recipeName = document.getElementById('search-input').value;
+        const recipeName = this.searchinput.value;
         this._clearInput();
         return recipeName;
     }
 
     _clearInput() {
-        document.getElementById('search-input').value = '';
+        this.searchinput.value = '';
     }
 
-    render(data) {
-        this._recipeList = data;
-        console.log(this._recipeList);
-
-        const markup = this._generateMarkup();
-        this._clear();
-        this._parentEl.insertAdjacentHTML('afterbegin', markup);
-    }
-
-    _clear() {
-        this._parentEl.innerHTML = '';
-    }
 
     _generateMarkup() {
-        console.log(this._recipeList);
-        let html = `${this._recipeList.map(recipe => {
+        console.log(this._data);
+        let html = `${this._data.map(recipe => {
             return ` <button class="btn--recipes " id="${recipe.id}"><div class="recipee flex" >
                     <div class="recipe-img flex">
 
