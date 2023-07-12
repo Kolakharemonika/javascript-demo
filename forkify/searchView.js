@@ -1,34 +1,34 @@
 class SearchView {
-    #parentEl = document.querySelector('.section-search-results');
-    #recipeList;
+    _parentEl = document.querySelector('.section-search-results');
+    _recipeList;
 
 
     getQuery() {
         const recipeName = document.getElementById('search-input').value;
-        this.#clearInput();
+        this._clearInput();
         return recipeName;
     }
 
-    #clearInput() {
+    _clearInput() {
         document.getElementById('search-input').value = '';
     }
 
     render(data) {
-        this.#recipeList = data;
-        console.log(this.#recipeList);
+        this._recipeList = data;
+        console.log(this._recipeList);
 
-        const markup = this.#generateMarkup();
-        this.#clear();
-        this.#parentEl.insertAdjacentHTML('afterbegin', markup);
+        const markup = this._generateMarkup();
+        this._clear();
+        this._parentEl.insertAdjacentHTML('afterbegin', markup);
     }
 
-    #clear() {
-        this.#parentEl.innerHTML = '';
+    _clear() {
+        this._parentEl.innerHTML = '';
     }
 
-    #generateMarkup() {
-        console.log(this.#recipeList);
-        let html = `${this.#recipeList.map(recipe => {
+    _generateMarkup() {
+        console.log(this._recipeList);
+        let html = `${this._recipeList.map(recipe => {
             return ` <button class="btn--recipes " id="${recipe.id}"><div class="recipee flex" >
                     <div class="recipe-img flex">
 
