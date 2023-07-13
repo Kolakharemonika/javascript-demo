@@ -93,6 +93,9 @@ const controlPagination = function (goToPage) {
 }
 
 const init = function () {
+
+    // searchView.addHandlerSearch(showRecipe)
+    // recipeView.addHandlerRender(showSerachResult)
     searchView.addHandlerClick(controlPagination);
 
 }
@@ -100,18 +103,19 @@ init();
 
 
 
-btnSearch.addEventListener('click', function (e) {
+// btnSearch.addEventListener('click', function (e) {
 
-    if (!serachRecipeName.value) return;
-    showSerachResult(serachRecipeName.value);
+//     if (!serachRecipeName.value) return;
+//     showSerachResult(serachRecipeName.value);
 
-});
+// });
 
 serachRecipeName.addEventListener('keypress', function (e) {
     if (e.key === 'Enter' && serachRecipeName.value) {
         showSerachResult(serachRecipeName.value);
     }
 })
+
 // Call the addEventListener method
 // ["click", "enter"].forEach((event) => {
 //     btn.addEventListener(event, increase)
