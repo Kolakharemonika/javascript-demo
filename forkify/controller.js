@@ -1,19 +1,14 @@
 // import icons from 'url:./img/icons.svg'
 // console.log(icons);
-// import { loadRecipe, state } from './model.js'
+
 import * as model from './model.js';
 import recipeView from './recipeView.js'
 import searchView from './searchView.js'
-import { API_URL } from './config.js'
-
-const recipeContainer = document.querySelector('.recipe-container');
-const searchResult = document.querySelector('.section-search-results');
+import view from './view.js'
 
 const serachRecipeName = document.getElementById('search-input');
 const btnSearch = document.querySelector('.btn__search');
 const welcomeMsg = document.querySelector('.recipe-message')
-
-
 
 const showRecipe = async function (recipeId) {
     try {
@@ -26,7 +21,7 @@ const showRecipe = async function (recipeId) {
 
 
         //loading recipe
-        recipeView.renderSpinner(recipeContainer);
+        recipeView.renderSpinner();
 
         await model.loadRecipe(recipeId); //receiving promise , return nothing
 
@@ -51,12 +46,17 @@ const showSerachResult = async function () {
         let recipeName = searchView.getQuery();
         if (!recipeName) return;
 
-        recipeView.renderSpinner(searchResult);
+        searchView.renderSpinner();
 
         //load search result
         await model.loadSearchResults(recipeName); //receiving promise , return nothing
 
-        searchView.render(model.state.search.results);
+        //showing data with page
+        searchView.render(model.getSearchResultsPage());
+
+
+        //initial pagination btns
+        searchView.renderPagination(model.state.search)
 
         const btnRecipe = document.querySelectorAll('.btn--recipes');
         console.log('this is');
@@ -76,9 +76,29 @@ const showSerachResult = async function () {
         })
 
     } catch (err) {
-        alert(err)
+        console.error(err);
     }
 }
+
+//Dom conection
+const controlPagination = function (goToPage) {
+    console.log(goToPage);
+
+    //showing data of new page
+    searchView.render(model.getSearchResultsPage(goToPage));
+
+
+    //Render new pagination btns
+    searchView.renderPagination(model.state.search)
+}
+
+const init = function () {
+    searchView.addHandlerClick(controlPagination);
+
+}
+init();
+
+
 
 btnSearch.addEventListener('click', function (e) {
 

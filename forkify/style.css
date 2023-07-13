@@ -355,3 +355,17 @@ input[type=range]:focus {
 
     outline: none;
 }
+
+.pagination {
+    justify-content: space-between;
+    margin: 10px;
+}
+
+.pagination .btn {
+    padding: 4px 8px;
+}
+
+.pagination svg {
+
+    margin-right: 0px;
+}

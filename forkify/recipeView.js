@@ -3,6 +3,8 @@ import View from './view.js'
 
 class RecipeView extends View {
     _parentElement = document.querySelector('.recipe-container');
+    _errorMessage = 'We could not find that recipe. Please try anather one!';
+    _message = '';
 
     _generateMarkup() {
         return ` <div class="recipe-head " >  <img src="${this._data.imageUrl}" alt="recipe_image">
@@ -20,14 +22,7 @@ class RecipeView extends View {
                         <div class="ingredients-list ">
                            
                             ${this._data.ingredients.map((ing, i) => {
-            if (i <= 10) {
-                return `<div class="ingredient flex" >
-                                    <svg class="nav__icon">
-                                        <use href="img/icons.svg#icon-check"></use>
-                                    </svg>
-                                    <span class="ingredient-dec">${ing}</span>
-                                </div>`
-            }
+            this.ingredients(ing)
         }).join(' ')}      
                         </div>
                            <div>
@@ -45,6 +40,15 @@ class RecipeView extends View {
                 </div>
                     </div>`;
 
+    }
+    ingredients(ing) {
+
+        return `<div class="ingredient flex" >
+                                    <svg class="nav__icon">
+                                        <use href="img/icons.svg#icon-check"></use>
+                                    </svg>
+                                    <span class="ingredient-dec">${ing}</span>
+                                </div>`
     }
 }
 
