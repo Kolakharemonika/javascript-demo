@@ -1,0 +1,4 @@
+What is Ajax?
+Ajax stands for Asynchronous JavaScript and XML. It is used to request data from the server without full-page refresh, and use the result, which was originally XML, to re-render a part of the page.
+
+Nowadays, Ajax refers to any asynchronous request sent to a server from a JavaScript. Mostly the response is JSON, or HTML fragments.

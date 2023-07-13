@@ -861,3 +861,20 @@ console.log(compareArrays(array1, array3)); //false
 
 console.log(compareArrays(array1, array2)); //false
 console.log(compareArrays(array1, array3)); //true
+
+
+const fetchbtn = document.querySelector('.fetch');
+
+const handlefetchrequest = function () {
+    const req = new XMLHttpRequest();
+    req.open('GET', 'ajaxdemo.txt', true); //true for async
+    // req.onprogress=
+    req.onload = function () {
+        console.log(this.responseText);
+    }
+    req.send()
+
+}
+
+fetchbtn.addEventListener('click', handlefetchrequest)
+
