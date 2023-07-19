@@ -50,10 +50,10 @@ mk.calcAge();
  * line by line execution
  * ex line of code and alert window
  * blocking
- * waiting for finidh line of code
+ * waiting for finish line of code
  * 
  * Asynchronous
- * line of code & setTimeout-timer fn
+ * line of code & 'setTimeout'-timer fn
  * (setTimeout running in background)
  * non-blocking
  * doesn't wait for finish its work

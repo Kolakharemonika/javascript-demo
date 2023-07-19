@@ -117,7 +117,7 @@ for (const player of game.scored) {
     console.log(`Goal ${i}:  ${player}`);
 }
 
-
+//game.scored.entries()  array to display as index and value
 for (const [i, player] of game.scored.entries()) {
     console.log(`Goal ${i + 1}:  ${player}`);
 }
@@ -130,7 +130,9 @@ for (const odd of odds) {
 avg = avg / odds.length
 console.log(avg, 'avg');
 
-console.log(Object.values(game.odds));
+console.log(Object.values(game.odds)); //getting all values
+console.log(Object.keys(game.odds)); //getting all keys
+console.log(Object.entries(game.odds)); //getting all data with keys and value, index
 
 let mk = Object.values(game.odds)
 let mkk = [game.team1, game.team2]
@@ -153,7 +155,7 @@ console.log(allplyaers, 'allplayers');
 let player1final = [...players1, 't', 'ce', 'p']
 console.log(player1final);
 
-const { odds: { team1, x: draw, team2 } } = game
+const { odds: { team1, x: draw, team2 } } = game;
 console.log(team1, draw, team2);
 for (const item of players1) console.log(item);
 
@@ -164,8 +166,8 @@ console.log('opetional chaining & nullish operator');
 for (const day of days) {
     //    restaurant.openingHours.day --wrong
     // console.log(restaurant.openingHours[day].open); //error undefined
-    const open = restaurant.openingHours[day]?.open ?? 'closed'
-    const close = restaurant.openingHours[day]?.close ?? 'closed'
+    const open = restaurant.openingHours[day]?.open ?? 'closed';
+    const close = restaurant.openingHours[day]?.close ?? 'closed';
     console.log(`On ${day} , we open at ${open} and we close at ${close}`);
     // restaurant.openingHours[day].open
 }
@@ -197,7 +199,7 @@ for (const [key, { open, close }] of entry) {
     console.log(key, open, close);
 }
 console.log('------------------------------');
-
+console.log('like array there is new Set() ');
 const staff = ['waiter', 'chef', 'waiter', 'chef', 'manager'];
 console.log(staff, 'staff');
 // const staffUnique = new Set(staff) //set method
@@ -205,7 +207,7 @@ const staffUnique = [...new Set(staff)]
 console.log(staffUnique, 'staffUnique using new Set method');
 // let dist = staff.pipe(distinct()) //rxjs
 
-console.log('like object there is map () ');
+console.log('like Object there is new Map() ');
 const rest = new Map();
 rest.set('name', 'classico italiano');
 rest.set(1, 'firenze, Italy');
@@ -217,7 +219,7 @@ console.log(rest.get('categories'), 'rest.get(categories) ')
 const time = 21;
 // console.log(rest.get());
 let mkkk = rest.get(time > rest.get('open') && time < rest.get('close'))
-console.log(mkkk, 'we can set, delete array usninf map()');
+console.log(mkkk, 'we can set, delete array using map()');
 rest.delete(2)
 
 console.log(rest.size, 'size 7 rest.size ,rest.clear');
@@ -279,7 +281,7 @@ console.log(gameEvent);
 console.log(gameEvent.values());
 // const eventsDist = new Set(gameEvent.values()); //correct 
 const eventsDist = [...new Set(gameEvent.values())];
-console.log(eventsDist);
+console.log(eventsDist);//unique events
 
 gameEvent.delete(64);
 // for (const [key, value] of gameEvent) {
@@ -300,9 +302,9 @@ for (const [key, value] of gameEvent) {
 
 
 // Example usage
-var amount = 123456789;
-var words = amountToWords(amount);
-console.log(words);
+var amount = 56789;
+var words = amountToWords(amount);//amount to word conversion
+console.log(words, 'amountToWords(56789) amount to word conversion');
 
 console.log('----------------strings=-----------------');
 console.log('split join trim');
@@ -456,7 +458,7 @@ console.log(greet1('Hellow'), "greet1('Hellow')");
 //         console.log('invalid');
 //  txtfieldEl.classList.add('border-red');
 //     }
-// })
+// });
 
 const txtfieldEl = document.querySelector('#txtfield');
 txtfieldEl.addEventListener('focusout', () => {
@@ -522,7 +524,7 @@ for (const [i, arr] of arr3.entries()) {
 // arr3.reverse().forEach(e => console.log(e))
 console.log('foreach on map');
 gameEvent.forEach((value, key, map) => {
-    console.log(`${key}: ${value}`);
+    console.log(`${key}: ${value}`,);
 });
 
 console.log('---------------------------------------------------------');
@@ -573,13 +575,15 @@ console.log(movements.reduce((acc, mov) => acc + mov));
 const totalDepositUSD = movements.filter(mov => mov > 0).map(mov => Math.trunc(mov * eurToUsd)).reduce((acc, mov) => acc + mov, 0)
 console.log(totalDepositUSD, '3 methods in one- filter map reduce');
 
-const max = movements.reduce((acc, mov) => {
+let newArr = [220, 495, -440, -715, -143, 77, 1430, 3300]
+//we can use reduce method for addition and getting maximum minimum value from array
+const max = newArr.reduce((acc, mov) => {
     if (acc > mov) {
         return acc;
     } else {
         return mov;
     }
-}, movements[0]);
+}, movements[0]); //acc = movements[0]
 
 console.log(max, 'maximun value');
 
@@ -589,7 +593,7 @@ for (const mov of movements) {
 }
 console.log(movementUsd);
 
-//find method return "first occured/one" element only -not areturn new array like map/filter
+//find method return "first occured/one" 'element' only -not areturn new array like map/filter
 console.log(movements.find(mov => mov < 0), ' find method we can use ');
 
 // boolean value giving methods---
@@ -625,6 +629,8 @@ console.log(accounts.map(acc => acc.movements).flat().reduce((acc, mov) => acc +
 
 //flatmap
 console.log(accounts.flatMap(acc => acc.movements).reduce((acc, mov) => acc + mov, 0));
+console.log(accounts.flatMap(acc => acc.movements).filter(mov => mov > 0).reduce((acc, mov) => acc + mov, 0));
+console.log(accounts.flatMap(acc => acc.movements).filter(mov => mov < 0).reduce((acc, mov) => acc + mov, 0));
 
 // -------------------------------------------------
 
@@ -872,9 +878,25 @@ const handlefetchrequest = function () {
     req.onload = function () {
         console.log(this.responseText);
     }
-    req.send()
+    req.send();
 
 }
-
 fetchbtn.addEventListener('click', handlefetchrequest)
 
+
+const postbtn = document.querySelector('.postbtn');
+
+const handlepostrequest = function () {
+    const req = new XMLHttpRequest();
+    req.open('POST', 'https://jsonplaceholder.typicode.com/posts', true); //true for async
+    // req.onprogress=
+    req.onload = function () {
+        console.log(this.responseText);
+    }
+    const params = `{"name":"textt},"salary":"123"}`
+    req.send(params);
+
+}
+//we need in json 
+
+postbtn.addEventListener('click', handlepostrequest)

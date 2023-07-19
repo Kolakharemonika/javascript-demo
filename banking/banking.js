@@ -100,7 +100,7 @@ const btnTransfer = document.querySelector('.form__btn--transfer');
 const btnLoan = document.querySelector('.form__btn--loan');
 const btnClose = document.querySelector('.form__btn--close');
 const btnSort = document.querySelector('.btn--sort');
-const btnLogout = document.querySelector('#logout');
+const btnLogout = document.querySelector('#logout'); //id
 
 const inputLoginUsername = document.querySelector('.login__input--user');
 const inputLoginPin = document.querySelector('.login__input--pin');
@@ -119,7 +119,7 @@ const currencies = new Map([
 (function createUserIds() { //using map method
     accounts.forEach(acc => {
         acc.username = acc.owner.toLowerCase().split(' ').map(name => name[0]).join('')
-        console.log(acc.username);
+        console.log(acc.username); //first initial letter in lowercase
     })
 })();
 

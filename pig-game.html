@@ -1,38 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>pig-game</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body class="game-body">
-    <div class="flex game-section">
-      <section class="col center player1">
-        <h3>PLAYER 1</h3>
-        <div class="dice-span-p1">0</div>
-        <div class="label">
-          CURRENT <br />
-          <span class="current-score-p1"> 0 </span>
-        </div>
-      </section>
-      <div class="col-1">
-        <button class="btn-game">New game</button>
-        <div class="dice-number hidden">
-          <img src="img/inverted-dice-1.svg" id="dice" alt="" />
-        </div>
-        <button class="btn-dice">Roll dice</button>
-        <button class="btn-hold">Hold</button>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pig-game</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="game-body">
+  <div class="flex game-section">
+    <section class="col center player1">
+      <h3>PLAYER 1</h3>
+      <div class="dice-span-p1">0</div>
+      <div class="label">
+        CURRENT <br />
+        <span class="current-score-p1"> 0 </span>
       </div>
-      <section class="col center player2">
-        <h3>PLAYER 2</h3>
-        <div class="dice-span-p2">0</div>
-        <div class="label">
-          CURRENT <br />
-          <span class="current-score-p2">0 </span>
-        </div>
-      </section>
+    </section>
+    <div class="col-1">
+      <button class="btn-game">New game</button>
+      <div class="dice-number hidden">
+        <img src="img/inverted-dice-1.svg" id="dice" alt="" />
+      </div>
+      <button class="btn-dice">Roll dice</button>
+      <button class="btn-hold">Hold</button>
     </div>
-    <script src="pig-game.js"></script>
-  </body>
+    <section class="col center player2">
+      <h3>PLAYER 2</h3>
+      <div class="dice-span-p2">0</div>
+      <div class="label">
+        CURRENT <br />
+        <span class="current-score-p2">0 </span>
+      </div>
+    </section>
+  </div>
+  <script src="js/pig-game.js"></script>
+</body>
+
 </html>
